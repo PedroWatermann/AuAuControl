@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="../assets/img/icon.ico" type="image/x-icon">
+    <title>Atendimento</title>
+</head>
+
+<body>
+    <aside class="sidebar">
+    <!-- Logotipo e Nome do Sistema -->
+    <div class="sidebar-header">
+        <img src="../assets/img/logo-512.png" alt=""> 
+        <h2>AuAu Control</h2>
+    </div>
+
+    <!-- Menu de Navegação -->
+    <nav class="sidebar-menu">
+        <!-- Grupo Clientes -->
+        <div class="menu-group">
+            <h3>Clientes</h3>
+            <ul>
+                <li class="active"><a href="#">Cadastrar e consultar</a></li>  <!--colocar os href depois de criar eles-->
+                <!-- Item ativo/selecionado na imagem -->
+                <li><a href="#">Relatório</a></li>
+            </ul>
+        </div>
+
+        <!-- Grupo Funcionários -->
+        <div class="menu-group">
+            <h3>Funcionários</h3>
+            <ul>
+                <li><a href="#">Cadastrar e consultar</a></li>
+                <li><a href="#">Relatório</a></li>
+            </ul>
+        </div>
+
+        <!-- Grupo Animais -->
+        <div class="menu-group">
+            <h3>Animais</h3>
+            <ul>
+                <li><a href="#">Cadastrar e consultar</a></li>
+                <li><a href="#">Relatório</a></li>
+            </ul>
+        </div>
+
+        <!-- Grupo Atendimentos -->
+        <div class="menu-group">
+            <h3>Atendimentos</h3>
+            <ul>
+                <li><a href="#">Cadastrar e consultar</a></li>
+                <li><a href="#">Relatório</a></li>
+            </ul>
+        </div>
+    </nav>
+</aside>
+
+<main class="conteudo">
+    
+    <h1>Clientes</h1>
+    <p>Cadastre novos clientes, altere ou remova os que já estão no sistema.</p>
+    
+    <!-- Formulário de Cadastro de Novo Cliente -->
+    <section class="form-container">
+        <h2>Novo cliente</h2>
+
+    <form id="form-atendimento">
+        <div class="form-group">
+            <label for="codigo">Código:</label><br>
+            <input type="text" id="codigo" name="codigo" readonly>
+        </div>
+
+        <div class="form-group">
+            <label for="data">Data:</label><br>
+            <input type="date" id="data" name="data" required>
+        </div>
+
+        <div class="form-group">
+            <label for="cliente">Cliente:</label><br>
+            <select id="cliente" name="cliente" required>
+                <option value="">Selecione um cliente...</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="animal">Animal:</label><br>
+            <select id="animal" name="animal" required>
+                <option value="">Selecione um animal...</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="funcionario">Funcionário:</label><br>
+            <select id="funcionario" name="funcionario" required>
+                <option value="">Selecione um funcionário...</option>
+            </select>
+        </div>
+
+        <div class="form-actions">
+            <button type="submit">Salvar atendimento</button>
+            <button type="reset">Limpar campos</button>
+        </div>
+    </form>
+    </section>
+    
+    <hr>
+    
+    <!-- Seção da Busca e Tabela de Clientes -->
+    <section class="table-container">
+        <h2>Atendimentos</h2>
+    
+        <form class="search-form">
+            <label for="buscacliente">Buscar Atendimento:</label> <br>
+            <input type="search" id="buscacliente" name="buscacliente" placeholder="Nome ou CPF..."> <br>
+            <button type="submit">Buscar</button>
+        </form>
+    
+        <table>
+            <thead>
+                <tr>
+                    <th>N°</th>
+                    <th>Nome</th>
+                    <th>Telefone</th>
+                    <th>E-mail</th>
+                    <th>CPF</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody id="tabela_clientes">
+                <tr>
+                    <td>1</td>
+                    <td>Vinicius Garcia</td>
+                    <td>(44) 99999-1234</td>
+                    <td>vinicius@email.com</td>
+                    <td>123.456.789-09</td>
+                    <td>
+                        <button type="button" class="btn-edit">Alterar</button>
+                        <button type="button" class="btn-delete">Remover</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>Pedro Waterman</td>
+                    <td>(44) 98888-5678</td>
+                    <td>Waterman@email.com</td>
+                    <td>987.654.321-00</td>
+                    <td>
+                        <button type="button" class="btn-edit">Alterar</button>
+                        <button type="button" class="btn-delete">Remover</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+</main>
+
+
+
+</body>
+</html>
