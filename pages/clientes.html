@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clientes | AuAu Control</title>
+
+    <link rel="icon" href="../assets/img/icon.ico" type="image/x-icon">
+
+    <link rel="stylesheet" href="../assets/css/reset.css">
+    <link rel="stylesheet" href="../assets/css/variables.css">
+    <link rel="stylesheet" href="../assets/css/global.css">
+    <link rel="stylesheet" href="../assets/css/components.css">
+</head>
+
+<body data-page="clientes">
+    <aside id="sidebar"></aside>
+
+    <main>
+        <header class="page-header">
+            <h1>Clientes</h1>
+            <p>Cadastre novos clientes e consulte, altere ou remova os que já estão no sistema.</p>
+        </header>
+
+        <div class="message" id="message" role="status">
+            <!-- TODO: O texto abaixo é para testar o CSS. Será a view/controller que tornará este campo visível e preenchido (colcoar um hidden depois) -->
+            Cliente salvo: Maria Souza
+        </div>
+
+        <section>
+            <h2>Novo cliente</h2>
+
+            <form id="form-cliente">
+                <input type="text" name="id" id="id" hidden>
+
+                <div class="field">
+                    <label for="nome">Nome completo</label>
+                    <input type="text" name="nome" id="nome" placeholder="Fulano da Silva" required>
+                </div>
+
+                <div class="field">
+                    <label for="telefone">Telefone</label>
+                    <input type="tel" id="telefone" name="telefone" placeholder="(44) 9 1234-5678">
+                </div>
+                <div class="field">
+                    <label for="email">E-mail</label>
+                    <input type="email" id="email" name="email" placeholder="fulano@gmail.com">
+                </div>
+                <div class="field">
+                    <label for="rg">RG</label>
+                    <input type="text" inputmode="numeric" id="rg" name="rg" placeholder="12.345.678-9">
+                </div>
+                <div class="field">
+                    <label for="cpf">CPF</label>
+                    <input type="text" inputmode="numeric" id="cpf" name="cpf" placeholder="123.456.789-01" required>
+                </div>
+
+                <div class="actions">
+                    <button type="submit" class="btn-primary">Salvar cliente</button>
+                    <button type="reset" class="btn-secondary">Limpar campos</button>
+                </div>
+            </form>
+        </section>
+
+        <section>
+            <h2>Clientes cadastrados</h2>
+
+            <form role="search">
+                <div class="search">
+                    <input type="text" name="busca" id="busca" placeholder="Buscar por nome ou CPF"
+                        aria-label="Buscar por nome ou CPF">
+                    <button class="btn-primary">Buscar</button>
+                </div>
+            </form>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nº</th>
+                        <th>Nome</th>
+                        <th>Telefone</th>
+                        <th>E-mail</th>
+                        <th>CPF</th>
+                        <th hidden>Ações</th>
+                    </tr>
+                </thead>
+                <tbody id="table-clientes">
+                    <!-- TODO: O conteúdo abaixo é para testar o CSS. Os dados reais serão preenchidos pela view/controller -->
+                    <tr>
+                        <td>1</td>
+                        <td>Maria Souza</td>
+                        <td>(44) 1 2345-6789</td>
+                        <td>maria@gmail.com</td>
+                        <td>123.456.789-01</td>
+                        <td>
+                            <div class="actions">
+                                <button type="button" class="btn-secondary">Alterar</button>
+                                <button type="button" class="btn-danger">Remover</button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </main>
+
+    <footer>
+        <p>
+            Desenvolvido por Pedro Watermann
+            <a href="https://www.linkedin.com/in/pedrowatermann" target="_blank" rel="noopener">
+                <img src="../assets/img/LinkedinLogo.png" alt="LinkedIn de Pedro Watermann">
+            </a>
+            e Vinicius Del Cielo
+            <a href="https://www.linkedin.com/in/vin%C3%ADcius-garcia-540246367" target="_blank" rel="noopener">
+                <img src="../assets/img/LinkedinLogo.png" alt="LinkedIn de Vinicius Del Cielo">
+            </a>
+        </p>
+    </footer>
+</body>
+
+<script src="../src/utils/validacoes.js"></script>
+<script src="../src/utils/formatadores.js"></script>
+<script src="../src/services/storage.js"></script>
+<script src="../src/views/LayoutView.js"></script>
+<script src="../src/models/Cliente.js"></script>
+<script src="../src/views/ClienteView.js"></script>
+<script src="../src/controllers/ClienteController.js"></script>
+
+</html>
