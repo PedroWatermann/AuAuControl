@@ -1,163 +1,135 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Funcionários | AuAu Control</title>
+
     <link rel="icon" href="../assets/img/icon.ico" type="image/x-icon">
-    <title>Cadastro e consulta: Funcionários</title>
+
+    <link rel="stylesheet" href="../assets/css/reset.css">
+    <link rel="stylesheet" href="../assets/css/variables.css">
+    <link rel="stylesheet" href="../assets/css/global.css">
+    <link rel="stylesheet" href="../assets/css/components.css">
 </head>
 
-<body>
-    <aside class="sidebar">
-    <!-- Logotipo e Nome do Sistema -->
-    <div class="sidebar-header">
-        <img src="../assets/img/logo-512.png" alt=""> 
-        <h2>AuAu Control</h2>
-    </div>
+<body data-page="funcionarios" data-path-base="../">
+    <aside id="sidebar"></aside>
 
-    <!-- Menu de Navegação -->
-    <nav class="sidebar-menu">
-        <!-- Grupo Clientes -->
-        <div class="menu-group">
-            <h3>Clientes</h3>
-            <ul>
-                <li class="active"><a href="#">Cadastrar e consultar</a></li>  <!--colocar os href depois de criar eles-->
-                <!-- Item ativo/selecionado na imagem -->
-                <li><a href="#">Relatório</a></li>
-            </ul>
+    <main>
+        <header class="page-header">
+            <h1>Funcionários</h1>
+            <p>Cadastre novos funcionários e consulte, altere ou remova os que já estão no sistema.</p>
+        </header>
+
+        <div class="message" id="message" role="status">
+            <!-- TODO: O texto abaixo é para testar o CSS. Será a view/controller que tornará este campo visível e preenchido (colocar um hidden depois) -->
+            Funcionário salvo: Carlos Mendes
         </div>
 
-        <!-- Grupo Funcionários -->
-        <div class="menu-group">
-            <h3>Funcionários</h3>
-            <ul>
-                <li><a href="#">Cadastrar e consultar</a></li>
-                <li><a href="#">Relatório</a></li>
-            </ul>
-        </div>
+        <section>
+            <h2>Novo funcionário</h2>
 
-        <!-- Grupo Animais -->
-        <div class="menu-group">
-            <h3>Animais</h3>
-            <ul>
-                <li><a href="#">Cadastrar e consultar</a></li>
-                <li><a href="#">Relatório</a></li>
-            </ul>
-        </div>
+            <form id="form-funcionario">
+                <input type="text" name="id" id="id" hidden>
 
-        <!-- Grupo Atendimentos -->
-        <div class="menu-group">
-            <h3>Atendimentos</h3>
-            <ul>
-                <li><a href="#">Cadastrar e consultar</a></li>
-                <li><a href="#">Relatório</a></li>
-            </ul>
-        </div>
-    </nav>
-</aside>
+                <div class="field">
+                    <label for="nome">Nome completo</label>
+                    <input type="text" id="nome" name="nome" placeholder="Fulano da Silva" required>
+                </div>
 
-<main class="conteudo">
-    
-    <h1>Funcionários</h1>
-    <p>Cadastre novos funcionários, altere ou remova os que já estão no sistema.</p>
-    
-    <!-- Formulário de Cadastro de Novo Cliente -->
-    <section class="form-container">
-        <h2>Novo Funcionário</h2>
-        <form>
-            <div class="form-group">
-                <label for="nome">Nome completo:</label><br>
-                <input type="text" id="nome" name="nome" placeholder="Digite o nome completo" required>
-            </div>
-    
-            <div class="form-group">
-                <label for="telefone">Telefone:</label><br>
-                <input type="tel" id="telefone" name="telefone" placeholder="(00) 00000-0000" required>
-            </div>
-    
-            <div class="form-group">
-                <label for="matricula">Matrícula:</label><br>
-                <input type="text" id="matricula" name="matricula" placeholder="000.000">
-            </div>
-    
-            <div class="form-group">
-                <label for="funcao">Função:</label><br>
-                <input type="funcao" id="funcao" name="funcao" placeholder="veterinario" required>
-            </div>
-    
-            <div class="form-group">
-                <label for="qualificacao">Qualificação:</label><br>
-                <input type="text" id="qualificacao" name="qualificacao" placeholder="Formado" required>
-            </div>
-            
-            <div class="form-group">
-                <label for="carga_horaria">Carga horária(Horas)</label><br>
-                <input type="number" id="carga_horaria" name="carga_horaria" placeholder="150.0 horas" required>
-            </div>
+                <div class="field">
+                    <label for="matricula">Matrícula</label>
+                    <input type="text" inputmode="numeric" id="matricula" name="matricula" placeholder="000123" required>
+                </div>
 
-            <div class="form-actions">
-                <button type="submit">Salvar funcionários</button>
-                <button type="reset">Limpar campos</button>
-            </div>
-        </form>
-    </section>
-    
-    <hr>
-    
-    <!-- Seção da Busca e Tabela de Clientes -->
-    <section class="table-container">
-        <h2>Funcionários cadastrados</h2>
-    
-        <form class="search-form">
-            <label for="buscafuncionario">Buscar funcionário:</label>
-            <input type="search" id="buscafuncionario" name="buscafuncionario" placeholder="Nome ou Matrícula...">
-            <button type="submit">Buscar</button>
-        </form>
-    
-        <table>
-            <thead>
-                <tr>
-                    <th>Nome</th>
-                    <th>Matrícula</th>
-                    <th>Qualificação</th>
-                    <th>Função</th>
-                    <th>Carga Horária</th>
-                    <th>Ações</th>
-                </tr>
-            </thead>
-            <tbody id="tabela_funcionario">
-                <tr>
-                    <td>1</td>
-                    <td>Vinicius Garcia</td>
-                    <td>152.432</td>
-                    <td>pós graduado</td>
-                    <td>veterinario</td>
-                    <td>60.2 horas</td>
-                    <td>sla</td>
-                    <td>
-                        <button type="button" class="btn-edit">Alterar</button>
-                        <button type="button" class="btn-delete">Remover</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>Pedro Waterman</td>
-                    <td>143.524</td>
-                    <td>doutorado</td>
-                    <td>chefe da cirurgia</td>
-                    <td>150.0 horas</td>
-                    <td>aaaa</td>
-                    <td>
-                        <button type="button" class="btn-edit">Alterar</button>
-                        <button type="button" class="btn-delete">Remover</button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </section>
-</main>
+                <div class="field">
+                    <label for="qualificacao">Qualificação</label>
+                    <input type="text" id="qualificacao" name="qualificacao" placeholder="Médico veterinário" required>
+                </div>
 
+                <div class="field">
+                    <label for="funcao">Descrição da função</label>
+                    <input type="text" id="funcao" name="funcao" placeholder="Atendimento clínico e vacinação" required>
+                </div>
 
+                <div class="field">
+                    <label for="carga-horaria">Carga horária semanal (horas)</label>
+                    <input type="number" id="carga-horaria" name="carga-horaria" placeholder="40" min="1" max="168" step="1" required>
+                </div>
 
+                <div class="actions">
+                    <button type="submit" class="btn-primary">Salvar funcionário</button>
+                    <button type="reset" class="btn-secondary">Limpar campos</button>
+                </div>
+            </form>
+        </section>
+
+        <section>
+            <h2>Funcionários cadastrados</h2>
+
+            <form role="search">
+                <div class="search">
+                    <input type="text" name="busca" id="busca" placeholder="Buscar por nome ou matrícula"
+                        aria-label="Buscar por nome ou matrícula">
+                    <button class="btn-primary">Buscar</button>
+                </div>
+            </form>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nº</th>
+                        <th>Nome</th>
+                        <th>Matrícula</th>
+                        <th>Qualificação</th>
+                        <th>Função</th>
+                        <th>Carga horária</th>
+                        <th><span class="sr-only">Ações</span></th>
+                    </tr>
+                </thead>
+                <tbody id="table-funcionarios">
+                    <!-- TODO: O conteúdo abaixo é para testar o CSS. Os dados reais serão preenchidos pela view/controller -->
+                    <tr>
+                        <td>1</td>
+                        <td>Carlos Mendes</td>
+                        <td>000123</td>
+                        <td>Médico veterinário</td>
+                        <td>Atendimento clínico e vacinação</td>
+                        <td>40 h</td>
+                        <td>
+                            <div class="actions">
+                                <button type="button" class="btn-secondary">Alterar</button>
+                                <button type="button" class="btn-danger">Remover</button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </main>
+
+    <footer>
+        <p>
+            Desenvolvido por Pedro Watermann
+            <a href="https://www.linkedin.com/in/pedrowatermann" target="_blank" rel="noopener">
+                <img src="../assets/img/LinkedinLogo.png" alt="LinkedIn de Pedro Watermann">
+            </a>
+            e Vinicius Del Cielo
+            <a href="https://www.linkedin.com/in/vin%C3%ADcius-garcia-540246367" target="_blank" rel="noopener">
+                <img src="../assets/img/LinkedinLogo.png" alt="LinkedIn de Vinicius Del Cielo">
+            </a>
+        </p>
+    </footer>
+
+    <script src="../src/utils/validacoes.js"></script>
+    <script src="../src/utils/formatadores.js"></script>
+    <script src="../src/services/storage.js"></script>
+    <script src="../src/views/LayoutView.js"></script>
+    <script src="../src/models/Funcionario.js"></script>
+    <script src="../src/views/FuncionarioView.js"></script>
+    <script src="../src/controllers/FuncionarioController.js"></script>
 </body>
+
 </html>

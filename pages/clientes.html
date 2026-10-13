@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="../assets/css/components.css">
 </head>
 
-<body data-page="clientes">
+<body data-page="clientes" data-path-base="../">
     <aside id="sidebar"></aside>
 
     <main>
@@ -82,7 +82,7 @@
                         <th>Telefone</th>
                         <th>E-mail</th>
                         <th>CPF</th>
-                        <th hidden>Ações</th>
+                        <th><span class="sr-only">Ações</span></th>
                     </tr>
                 </thead>
                 <tbody id="table-clientes">
@@ -117,14 +117,14 @@
             </a>
         </p>
     </footer>
-</body>
 
-<script src="../src/utils/validacoes.js"></script>
-<script src="../src/utils/formatadores.js"></script>
-<script src="../src/services/storage.js"></script>
-<script src="../src/views/LayoutView.js"></script>
-<script src="../src/models/Cliente.js"></script>
-<script src="../src/views/ClienteView.js"></script>
-<script src="../src/controllers/ClienteController.js"></script>
+    <script src="../src/utils/validacoes.js"></script>
+    <script src="../src/utils/formatadores.js"></script>
+    <script src="../src/services/storage.js"></script>
+    <script src="../src/views/LayoutView.js"></script>
+    <script src="../src/models/Cliente.js"></script>
+    <script src="../src/views/ClienteView.js"></script>
+    <script src="../src/controllers/ClienteController.js"></script>
+</body>
 
 </html>

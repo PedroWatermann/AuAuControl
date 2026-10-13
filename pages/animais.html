@@ -1,143 +1,121 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animais | AuAu Control</title>
+
     <link rel="icon" href="../assets/img/icon.ico" type="image/x-icon">
-    <title>Cadastro e consulta: Animais</title>
+
+    <link rel="stylesheet" href="../assets/css/reset.css">
+    <link rel="stylesheet" href="../assets/css/variables.css">
+    <link rel="stylesheet" href="../assets/css/global.css">
+    <link rel="stylesheet" href="../assets/css/components.css">
 </head>
 
-<body>
-    <aside class="sidebar">
-    <!-- Logotipo e Nome do Sistema -->
-    <div class="sidebar-header">
-        <img src="../assets/img/logo-512.png" alt=""> 
-        <h2>AuAu Control</h2>
-    </div>
+<body data-page="animais" data-path-base="../">
+    <aside id="sidebar"></aside>
 
-    <!-- Menu de Navegação -->
-    <nav class="sidebar-menu">
-        <!-- Grupo Clientes -->
-        <div class="menu-group">
-            <h3>Clientes</h3>
-            <ul>
-                <li class="active"><a href="#">Cadastrar e consultar</a></li>  <!--colocar os href depois de criar eles-->
-                <!-- Item ativo/selecionado na imagem -->
-                <li><a href="#">Relatório</a></li>
-            </ul>
+    <main>
+        <header class="page-header">
+            <h1>Animais</h1>
+            <p>Cadastre novos animais e consulte, altere ou remova os que já estão no sistema.</p>
+        </header>
+
+        <div class="message" id="message" role="status">
+            <!-- TODO: O texto abaixo é para testar o CSS. Será a view/controller que tornará este campo visível e preenchido (colocar um hidden depois) -->
+            Animal salvo: Nina
         </div>
 
-        <!-- Grupo Funcionários -->
-        <div class="menu-group">
-            <h3>Funcionários</h3>
-            <ul>
-                <li><a href="#">Cadastrar e consultar</a></li>
-                <li><a href="#">Relatório</a></li>
-            </ul>
-        </div>
+        <section>
+            <h2>Novo animal</h2>
 
-        <!-- Grupo Animais -->
-        <div class="menu-group">
-            <h3>Animais</h3>
-            <ul>
-                <li><a href="#">Cadastrar e consultar</a></li>
-                <li><a href="#">Relatório</a></li>
-            </ul>
-        </div>
+            <form id="form-animal">
+                <input type="text" name="id" id="id" hidden>
 
-        <!-- Grupo Atendimentos -->
-        <div class="menu-group">
-            <h3>Atendimentos</h3>
-            <ul>
-                <li><a href="#">Cadastrar e consultar</a></li>
-                <li><a href="#">Relatório</a></li>
-            </ul>
-        </div>
-    </nav>
-</aside>
+                <div class="field">
+                    <label for="nome">Nome</label>
+                    <input type="text" id="nome" name="nome" placeholder="Nina" required>
+                </div>
 
-<main class="conteudo">
-    
-    <h1>Clientes</h1>
-    <p>Cadastre novos animais, altere ou remova os que já estão no sistema.</p>
-    
-    <!-- Formulário de Cadastro de Novo Cliente -->
-    <section class="form-container">
-        <h2>Novo animal</h2>
-        <form>
-            <div class="form-group">
-                <label for="nome">Nome:</label><br>
-                <input type="text" id="nome" name="nome" placeholder="Digite o nome completo" required>
-            </div>
-    
-            <div class="form-group">
-                <label for="peso">Peso(kg):</label><br>
-                <input type="number" id="peso" name="peso" placeholder="00.00" required step="0.01">
-            </div>
-    
-            <div class="form-group">
-                <label for="altura">Altura(cm):</label><br>
-                <input type="number" id="altura" name="altura" placeholder="00.00" required step="0.01">
-            </div>
-    
-            <div class="form-actions">
-                <button type="submit">Salvar</button>
-                <button type="reset">Limpar campos</button>
-            </div>
-        </form>
-    </section>
-    
-    <hr>
-    
-    <!-- Seção da Busca e Tabela de Clientes -->
-    <section class="table-container">
-        <h2>Animais Cadastrados</h2>
-    
-        <form class="search-form">
-            <label for="buscanome">Buscar nome:</label>
-            <input type="search" id="buscanome" name="buscanome" placeholder="Nome ou CPF...">
-            <button type="submit">Buscar</button>
-        </form>
-    
-        <table>
-            <thead>
-                <tr>
-                    <th>N°</th>
-                    <th>Nome</th>
-                    <th>Peso</th>
-                    <th>Altura</th>
-                    <th>Ações</th>
-                </tr>
-            </thead>
-            <tbody id="tabela_animais">
-                <tr>
-                    <td>1</td>
-                    <td>Nina</td>
-                    <td>07.0 kg</td>
-                    <td>00.70 cm</td>
-                    <td>castração</td>
-                    <td>
-                        <button type="button" class="btn-edit">Alterar</button>
-                        <button type="button" class="btn-delete">Remover</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>Mel</td>
-                    <td>05.0 kg</td>
-                    <td>100.0 cm</td>
-                    <td>medicamento</td>
-                    <td>
-                        <button type="button" class="btn-edit">Alterar</button>
-                        <button type="button" class="btn-delete">Remover</button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </section>
-</main>
+                <div class="field">
+                    <label for="peso">Peso (kg)</label>
+                    <input type="number" id="peso" name="peso" placeholder="7,5" min="0" step="0.01" required>
+                </div>
 
+                <div class="field">
+                    <label for="altura">Altura (cm)</label>
+                    <input type="number" id="altura" name="altura" placeholder="35" min="0" step="0.1" required>
+                </div>
 
+                <div class="actions">
+                    <button type="submit" class="btn-primary">Salvar animal</button>
+                    <button type="reset" class="btn-secondary">Limpar campos</button>
+                </div>
+            </form>
+        </section>
 
+        <section>
+            <h2>Animais cadastrados</h2>
+
+            <form role="search">
+                <div class="search">
+                    <input type="text" name="busca" id="busca" placeholder="Buscar por nome"
+                        aria-label="Buscar por nome">
+                    <button class="btn-primary">Buscar</button>
+                </div>
+            </form>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nº</th>
+                        <th>Nome</th>
+                        <th>Peso</th>
+                        <th>Altura</th>
+                        <th><span class="sr-only">Ações</span></th>
+                    </tr>
+                </thead>
+                <tbody id="table-animais">
+                    <!-- TODO: O conteúdo abaixo é para testar o CSS. Os dados reais serão preenchidos pela view/controller -->
+                    <tr>
+                        <td>1</td>
+                        <td>Nina</td>
+                        <td>7,5 kg</td>
+                        <td>35 cm</td>
+                        <td>
+                            <div class="actions">
+                                <button type="button" class="btn-secondary">Alterar</button>
+                                <button type="button" class="btn-danger">Remover</button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </main>
+
+    <footer>
+        <p>
+            Desenvolvido por Pedro Watermann
+            <a href="https://www.linkedin.com/in/pedrowatermann" target="_blank" rel="noopener">
+                <img src="../assets/img/LinkedinLogo.png" alt="LinkedIn de Pedro Watermann">
+            </a>
+            e Vinicius Del Cielo
+            <a href="https://www.linkedin.com/in/vin%C3%ADcius-garcia-540246367" target="_blank" rel="noopener">
+                <img src="../assets/img/LinkedinLogo.png" alt="LinkedIn de Vinicius Del Cielo">
+            </a>
+        </p>
+    </footer>
+
+    <script src="../src/utils/validacoes.js"></script>
+    <script src="../src/utils/formatadores.js"></script>
+    <script src="../src/services/storage.js"></script>
+    <script src="../src/views/LayoutView.js"></script>
+    <script src="../src/models/Animal.js"></script>
+    <script src="../src/views/AnimalView.js"></script>
+    <script src="../src/controllers/AnimalController.js"></script>
 </body>
+
 </html>
