@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relatórios | AuAu Control</title>
+
+    <link rel="icon" href="../assets/img/icon.ico" type="image/x-icon">
+
+    <link rel="stylesheet" href="../assets/css/reset.css">
+    <link rel="stylesheet" href="../assets/css/variables.css">
+    <link rel="stylesheet" href="../assets/css/global.css">
+    <link rel="stylesheet" href="../assets/css/components.css">
+</head>
+
+<body data-page="relatorios" data-path-base="../">
+    <aside id="sidebar"></aside>
+
+    <main>
+        <header class="page-header">
+            <h1>Relatórios</h1>
+            <p id="relatorio-resumo">Escolha qual relatório deseja visualizar.</p>
+        </header>
+
+        <section>
+            <form id="form-relatorio">
+                <div class="field">
+                    <label for="tipo-relatorio">Tipo de relatório</label>
+                    <select id="tipo-relatorio" name="tipo">
+                        <option value="clientes" selected>Clientes</option>
+                        <option value="funcionarios">Funcionários</option>
+                        <option value="animais">Animais</option>
+                        <option value="atendimentos">Atendimentos</option>
+                    </select>
+                </div>
+
+                <div class="actions">
+                    <button type="button" class="btn-secondary" id="btn-imprimir">Imprimir relatório</button>
+                </div>
+            </form>
+        </section>
+
+        <section>
+            <h2 id="relatorio-titulo">Relatório de clientes</h2>
+
+            <table>
+                <thead id="relatorio-cabecalho"></thead>
+                <tbody id="relatorio-corpo"></tbody>
+            </table>
+        </section>
+    </main>
+
+    <footer>
+        <p>
+            Desenvolvido por Pedro Watermann
+            <a href="https://www.linkedin.com/in/pedrowatermann" target="_blank" rel="noopener">
+                <img src="../assets/img/LinkedinLogo.png" alt="LinkedIn de Pedro Watermann">
+            </a>
+            e Vinicius Del Cielo
+            <a href="https://www.linkedin.com/in/vin%C3%ADcius-garcia-540246367" target="_blank" rel="noopener">
+                <img src="../assets/img/LinkedinLogo.png" alt="LinkedIn de Vinicius Del Cielo">
+            </a>
+        </p>
+    </footer>
+
+    <script src="../src/utils/formatadores.js"></script>
+    <script src="../src/services/storage.js"></script>
+    <script src="../src/views/LayoutView.js"></script>
+    <script src="../src/models/Cliente.js"></script>
+    <script src="../src/models/Funcionario.js"></script>
+    <script src="../src/models/Animal.js"></script>
+    <script src="../src/models/Atendimento.js"></script>
+    <script src="../src/views/RelatorioView.js"></script>
+    <script src="../src/controllers/RelatorioController.js"></script>
+</body>
+
+</html>
