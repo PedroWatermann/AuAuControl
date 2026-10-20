@@ -8,6 +8,7 @@
 
     <link rel="icon" href="../assets/img/icon.ico" type="image/x-icon">
 
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../assets/css/reset.css">
     <link rel="stylesheet" href="../assets/css/variables.css">
     <link rel="stylesheet" href="../assets/css/global.css">
@@ -18,16 +19,16 @@
     <aside id="sidebar"></aside>
 
     <main>
-        <header class="page-header">
-            <h1>Relatórios</h1>
-            <p id="relatorio-resumo">Escolha qual relatório deseja visualizar.</p>
+        <header class="mb-4">
+            <h1 class="fw-bold">Relatórios</h1>
+            <p id="relatorio-resumo" class="text-body-secondary mb-0">Escolha qual relatório deseja visualizar.</p>
         </header>
 
-        <section>
-            <form id="form-relatorio">
-                <div class="field">
-                    <label for="tipo-relatorio">Tipo de relatório</label>
-                    <select id="tipo-relatorio" name="tipo">
+        <section class="card card-body shadow-sm mb-4">
+            <form id="form-relatorio" class="row g-3 align-items-end">
+                <div class="col-md-6">
+                    <label class="form-label fw-semibold" for="tipo-relatorio">Tipo de relatório</label>
+                    <select class="form-select" id="tipo-relatorio" name="tipo">
                         <option value="clientes" selected>Clientes</option>
                         <option value="funcionarios">Funcionários</option>
                         <option value="animais">Animais</option>
@@ -35,18 +36,18 @@
                     </select>
                 </div>
 
-                <div class="actions">
-                    <button type="button" class="btn-secondary" id="btn-imprimir">Imprimir relatório</button>
+                <div class="col-md-6 d-flex justify-content-md-end">
+                    <button type="button" class="btn btn-outline-primary rounded-pill px-4 fw-bold" id="btn-imprimir">Imprimir relatório</button>
                 </div>
             </form>
         </section>
 
-        <section>
-            <h2 id="relatorio-titulo">Relatório de clientes</h2>
+        <section class="card card-body shadow-sm mb-4">
+            <h2 id="relatorio-titulo" class="card-title fs-5 fw-bold mb-3">Relatório de clientes</h2>
 
-            <table>
+            <table class="table align-middle mb-0">
                 <thead id="relatorio-cabecalho"></thead>
-                <tbody id="relatorio-corpo"></tbody>
+                <tbody class="table-group-divider" id="relatorio-corpo"></tbody>
             </table>
         </section>
     </main>

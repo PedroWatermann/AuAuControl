@@ -8,6 +8,7 @@
 
     <link rel="icon" href="../assets/img/icon.ico" type="image/x-icon">
 
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../assets/css/reset.css">
     <link rel="stylesheet" href="../assets/css/variables.css">
     <link rel="stylesheet" href="../assets/css/global.css">
@@ -18,67 +19,67 @@
     <aside id="sidebar"></aside>
 
     <main>
-        <header class="page-header">
-            <h1>Atendimentos</h1>
-            <p>Cadastre novos atendimentos e consulte, altere ou remova os que já estão no sistema.</p>
+        <header class="mb-4">
+            <h1 class="fw-bold">Atendimentos</h1>
+            <p class="text-body-secondary mb-0">Cadastre novos atendimentos e consulte, altere ou remova os que já estão no sistema.</p>
         </header>
 
-        <div class="message" id="message" role="status">
+        <div class="alert alert-success border-0 border-start border-4 border-success" id="message" role="status">
             <!-- TODO: O texto abaixo é para testar o CSS. Será a view/controller que tornará este campo visível e preenchido (colocar um hidden depois) -->
             Atendimento salvo: nº 1
         </div>
 
-        <section>
-            <h2>Novo atendimento</h2>
+        <section class="card card-body shadow-sm mb-4">
+            <h2 class="card-title fs-5 fw-bold mb-3">Novo atendimento</h2>
 
-            <form id="form-atendimento">
+            <form id="form-atendimento" class="row g-3">
                 <input type="text" name="id" id="id" hidden>
 
-                <div class="field">
-                    <label for="data">Data</label>
-                    <input type="date" id="data" name="data" required>
+                <div class="col-md-6">
+                    <label class="form-label fw-semibold" for="data">Data</label>
+                    <input class="form-control" type="date" id="data" name="data" required>
                 </div>
 
-                <div class="field">
-                    <label for="cliente">Cliente</label>
-                    <select id="cliente" name="cliente" required>
+                <div class="col-md-6">
+                    <label class="form-label fw-semibold" for="cliente">Cliente</label>
+                    <select class="form-select" id="cliente" name="cliente" required>
                         <option value="">Selecione um cliente</option>
                     </select>
                 </div>
 
-                <div class="field">
-                    <label for="animal">Animal</label>
-                    <select id="animal" name="animal" required>
+                <div class="col-md-6">
+                    <label class="form-label fw-semibold" for="animal">Animal</label>
+                    <select class="form-select" id="animal" name="animal" required>
                         <option value="">Selecione um animal</option>
                     </select>
                 </div>
 
-                <div class="field">
-                    <label for="funcionario">Funcionário</label>
-                    <select id="funcionario" name="funcionario" required>
+                <div class="col-md-6">
+                    <label class="form-label fw-semibold" for="funcionario">Funcionário</label>
+                    <select class="form-select" id="funcionario" name="funcionario" required>
                         <option value="">Selecione um funcionário</option>
                     </select>
                 </div>
 
-                <div class="actions">
-                    <button type="submit" class="btn-primary">Salvar atendimento</button>
-                    <button type="reset" class="btn-secondary">Limpar campos</button>
+                <div class="col-12 d-flex gap-2">
+                    <button type="submit" class="btn btn-primary rounded-pill px-4 fw-bold">Salvar atendimento</button>
+                    <button type="reset" class="btn btn-outline-primary rounded-pill px-4 fw-bold">Limpar campos</button>
                 </div>
             </form>
         </section>
 
-        <section>
-            <h2>Atendimentos cadastrados</h2>
+        <section class="card card-body shadow-sm mb-4">
+            <h2 class="card-title fs-5 fw-bold mb-3">Atendimentos cadastrados</h2>
 
             <form role="search">
-                <div class="search">
-                    <input type="text" name="busca" id="busca" placeholder="Buscar por código ou cliente"
+                <div class="d-flex gap-3 mb-3">
+                    <input class="form-control" type="text" name="busca" id="busca" placeholder="Buscar por código ou cliente"
                         aria-label="Buscar por código ou cliente">
-                    <button class="btn-primary">Buscar</button>
+                    <button class="btn btn-primary rounded-pill px-4 fw-bold">Buscar</button>
                 </div>
             </form>
 
-            <table>
+            <table class="table align-middle mb-0">
                 <thead>
                     <tr>
                         <th>Código</th>
@@ -86,21 +87,21 @@
                         <th>Cliente</th>
                         <th>Animal</th>
                         <th>Funcionário</th>
-                        <th><span class="sr-only">Ações</span></th>
+                        <th><span class="visually-hidden">Ações</span></th>
                     </tr>
                 </thead>
-                <tbody id="table-atendimentos">
+                <tbody class="table-group-divider" id="table-atendimentos">
                     <!-- TODO: O conteúdo abaixo é para testar o CSS. Os dados reais serão preenchidos pela view/controller -->
                     <tr>
-                        <td>1</td>
+                        <td><span class="badge rounded-pill text-bg-warning px-3">1</span></td>
                         <td>12/10/2026</td>
                         <td>Maria Souza</td>
                         <td>Nina</td>
                         <td>Carlos Mendes</td>
                         <td>
-                            <div class="actions">
-                                <button type="button" class="btn-secondary">Alterar</button>
-                                <button type="button" class="btn-danger">Remover</button>
+                            <div class="d-flex gap-2 justify-content-end">
+                                <button type="button" class="btn btn-sm btn-outline-primary rounded-pill px-3 fw-semibold">Alterar</button>
+                                <button type="button" class="btn btn-sm btn-outline-danger rounded-pill px-3 fw-semibold">Remover</button>
                             </div>
                         </td>
                     </tr>

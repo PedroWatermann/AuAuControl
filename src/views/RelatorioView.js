@@ -102,6 +102,7 @@ function renderizarCorpo(colunas, lista) {
         const tr = document.createElement('tr');
         const td = document.createElement('td');
         td.colSpan = colunas.length + 1;
+        td.className = 'text-center text-body-secondary py-4';
         td.textContent = RELATORIOS[RelatorioView.obterTipoSelecionado()].mensagemVazio;
         tr.appendChild(td);
         tbody.appendChild(tr);
@@ -112,7 +113,10 @@ function renderizarCorpo(colunas, lista) {
         const tr = document.createElement('tr');
 
         const tdNumero = document.createElement('td');
-        tdNumero.textContent = indice + 1;
+        const selo = document.createElement('span');
+        selo.className = 'badge rounded-pill text-bg-warning px-3';
+        selo.textContent = indice + 1;
+        tdNumero.appendChild(selo);
         tr.appendChild(tdNumero);
 
         for (const coluna of colunas) {

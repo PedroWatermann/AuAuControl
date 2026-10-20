@@ -8,6 +8,7 @@
 
     <link rel="icon" href="../assets/img/icon.ico" type="image/x-icon">
 
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../assets/css/reset.css">
     <link rel="stylesheet" href="../assets/css/variables.css">
     <link rel="stylesheet" href="../assets/css/global.css">
@@ -18,63 +19,63 @@
     <aside id="sidebar"></aside>
 
     <main>
-        <header class="page-header">
-            <h1>Clientes</h1>
-            <p>Cadastre novos clientes e consulte, altere ou remova os que já estão no sistema.</p>
+        <header class="mb-4">
+            <h1 class="fw-bold">Clientes</h1>
+            <p class="text-body-secondary mb-0">Cadastre novos clientes e consulte, altere ou remova os que já estão no sistema.</p>
         </header>
 
-        <div class="message" id="message" role="status">
+        <div class="alert alert-success border-0 border-start border-4 border-success" id="message" role="status">
             <!-- TODO: O texto abaixo é para testar o CSS. Será a view/controller que tornará este campo visível e preenchido (colcoar um hidden depois) -->
             Cliente salvo: Maria Souza
         </div>
 
-        <section>
-            <h2>Novo cliente</h2>
+        <section class="card card-body shadow-sm mb-4">
+            <h2 class="card-title fs-5 fw-bold mb-3">Novo cliente</h2>
 
-            <form id="form-cliente">
+            <form id="form-cliente" class="row g-3">
                 <input type="text" name="id" id="id" hidden>
 
-                <div class="field">
-                    <label for="nome">Nome completo</label>
-                    <input type="text" name="nome" id="nome" placeholder="Fulano da Silva" required>
+                <div class="col-12">
+                    <label class="form-label fw-semibold" for="nome">Nome completo</label>
+                    <input class="form-control" type="text" name="nome" id="nome" placeholder="Fulano da Silva" required>
                 </div>
 
-                <div class="field">
-                    <label for="telefone">Telefone</label>
-                    <input type="tel" id="telefone" name="telefone" placeholder="(44) 9 1234-5678">
+                <div class="col-md-6">
+                    <label class="form-label fw-semibold" for="telefone">Telefone</label>
+                    <input class="form-control" type="tel" id="telefone" name="telefone" placeholder="(44) 9 1234-5678">
                 </div>
-                <div class="field">
-                    <label for="email">E-mail</label>
-                    <input type="email" id="email" name="email" placeholder="fulano@gmail.com">
+                <div class="col-md-6">
+                    <label class="form-label fw-semibold" for="email">E-mail</label>
+                    <input class="form-control" type="email" id="email" name="email" placeholder="fulano@gmail.com">
                 </div>
-                <div class="field">
-                    <label for="rg">RG</label>
-                    <input type="text" inputmode="numeric" id="rg" name="rg" placeholder="12.345.678-9">
+                <div class="col-md-6">
+                    <label class="form-label fw-semibold" for="rg">RG</label>
+                    <input class="form-control" type="text" inputmode="numeric" id="rg" name="rg" placeholder="12.345.678-9">
                 </div>
-                <div class="field">
-                    <label for="cpf">CPF</label>
-                    <input type="text" inputmode="numeric" id="cpf" name="cpf" placeholder="123.456.789-01" required>
+                <div class="col-md-6">
+                    <label class="form-label fw-semibold" for="cpf">CPF</label>
+                    <input class="form-control" type="text" inputmode="numeric" id="cpf" name="cpf" placeholder="123.456.789-01" required>
                 </div>
 
-                <div class="actions">
-                    <button type="submit" class="btn-primary">Salvar cliente</button>
-                    <button type="reset" class="btn-secondary">Limpar campos</button>
+                <div class="col-12 d-flex gap-2">
+                    <button type="submit" class="btn btn-primary rounded-pill px-4 fw-bold">Salvar cliente</button>
+                    <button type="reset" class="btn btn-outline-primary rounded-pill px-4 fw-bold">Limpar campos</button>
                 </div>
             </form>
         </section>
 
-        <section>
-            <h2>Clientes cadastrados</h2>
+        <section class="card card-body shadow-sm mb-4">
+            <h2 class="card-title fs-5 fw-bold mb-3">Clientes cadastrados</h2>
 
             <form role="search">
-                <div class="search">
-                    <input type="text" name="busca" id="busca" placeholder="Buscar por nome ou CPF"
+                <div class="d-flex gap-3 mb-3">
+                    <input class="form-control" type="text" name="busca" id="busca" placeholder="Buscar por nome ou CPF"
                         aria-label="Buscar por nome ou CPF">
-                    <button class="btn-primary">Buscar</button>
+                    <button class="btn btn-primary rounded-pill px-4 fw-bold">Buscar</button>
                 </div>
             </form>
 
-            <table>
+            <table class="table align-middle mb-0">
                 <thead>
                     <tr>
                         <th>Nº</th>
@@ -82,21 +83,21 @@
                         <th>Telefone</th>
                         <th>E-mail</th>
                         <th>CPF</th>
-                        <th><span class="sr-only">Ações</span></th>
+                        <th><span class="visually-hidden">Ações</span></th>
                     </tr>
                 </thead>
-                <tbody id="table-clientes">
+                <tbody class="table-group-divider" id="table-clientes">
                     <!-- TODO: O conteúdo abaixo é para testar o CSS. Os dados reais serão preenchidos pela view/controller -->
                     <tr>
-                        <td>1</td>
+                        <td><span class="badge rounded-pill text-bg-warning px-3">1</span></td>
                         <td>Maria Souza</td>
                         <td>(44) 1 2345-6789</td>
                         <td>maria@gmail.com</td>
                         <td>123.456.789-01</td>
                         <td>
-                            <div class="actions">
-                                <button type="button" class="btn-secondary">Alterar</button>
-                                <button type="button" class="btn-danger">Remover</button>
+                            <div class="d-flex gap-2 justify-content-end">
+                                <button type="button" class="btn btn-sm btn-outline-primary rounded-pill px-3 fw-semibold">Alterar</button>
+                                <button type="button" class="btn btn-sm btn-outline-danger rounded-pill px-3 fw-semibold">Remover</button>
                             </div>
                         </td>
                     </tr>
