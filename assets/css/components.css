@@ -1,0 +1,7 @@
+aside  {
+    background-color: var(--azul-escuro);
+}
+
+section {
+    box-shadow: 0 -5px 0 var(--azul-escuro);
+}
