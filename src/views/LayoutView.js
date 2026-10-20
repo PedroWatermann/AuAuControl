@@ -78,7 +78,7 @@ function criarGrupo(grupo, base, atual) {
     const details = document.createElement('details');
     const summary = document.createElement('summary');
     summary.textContent = grupo.texto;
-    summary.className = 'nav-link text-warning fw-bold';
+    summary.className = 'nav-link text-warning fw-bold dropdown-toggle';
 
     const ul = document.createElement('ul');
     ul.className = 'nav nav-pills flex-column gap-1 mb-2';
@@ -102,6 +102,7 @@ function criarGrupo(grupo, base, atual) {
 
 function preencherSidebar() {
     const sidebar = document.getElementById('sidebar');
+    sidebar.classList = 'col-md-3 col-xl-2 d-flex flex-column p-3';
     const base = document.body.dataset.pathBase ?? '';
     const atual = document.body.dataset.page;
 
