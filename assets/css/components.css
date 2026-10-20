@@ -1,0 +1,6 @@
+@import url("./variables.css");
+
+.card {
+    border-radius: 14px;
+    border-top: 5px solid var(--azul-escuro);
+}
