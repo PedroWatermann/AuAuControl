@@ -83,11 +83,13 @@ function renderizarCabecalho(colunas) {
 
     const thNumero = document.createElement('th');
     thNumero.textContent = 'Nº';
+    thNumero.className = 'text-primary';
     tr.appendChild(thNumero);
 
     for (const coluna of colunas) {
         const th = document.createElement('th');
         th.textContent = coluna.titulo;
+        th.className = 'text-primary';
         tr.appendChild(th);
     }
 

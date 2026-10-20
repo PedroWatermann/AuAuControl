@@ -38,11 +38,13 @@ const MENU = [
 function criarCabecalho(base) {
     const link = document.createElement('a');
     link.href = base + 'index.html';
-    link.className = 'sidebar-header';
+    link.className = 'd-flex align-items-center gap-2 mb-4 text-white text-decoration-none fs-5 fw-bold';
 
     const logo = document.createElement('img');
     logo.src = base + 'assets/img/logo-512.png';
     logo.alt = '';
+    logo.width = 48;
+    logo.height = 48;
 
     const nome = document.createElement('span');
     nome.textContent = 'AuAu Control';
@@ -55,6 +57,7 @@ function criarPaginaLink(item, base, atual) {
     const a = document.createElement('a');
     a.href = base + item.href;
     a.textContent = item.texto;
+    a.className = 'nav-link';
 
     if (item.pagina === atual) {
         a.classList.add('active');
@@ -64,16 +67,28 @@ function criarPaginaLink(item, base, atual) {
     return a;
 }
 
+// Link fora de grupo (ex.: Relatórios): mesmo destaque amarelo dos títulos dos grupos
+function criarLinkSolto(item, base, atual) {
+    const a = criarPaginaLink(item, base, atual);
+    a.classList.add('text-warning', 'fw-bold');
+    return a;
+}
+
 function criarGrupo(grupo, base, atual) {
     const details = document.createElement('details');
     const summary = document.createElement('summary');
     summary.textContent = grupo.texto;
+    summary.className = 'nav-link text-warning fw-bold';
 
     const ul = document.createElement('ul');
+    ul.className = 'nav nav-pills flex-column gap-1 mb-2';
 
     for (const item of grupo.itens) {
         const li = document.createElement('li');
-        li.appendChild(criarPaginaLink(item, base, atual));
+        li.className = 'nav-item';
+        const link = criarPaginaLink(item, base, atual);
+        link.classList.add('text-white');
+        li.appendChild(link);
         ul.appendChild(li);
 
         if (item.pagina === atual) {
@@ -91,12 +106,13 @@ function preencherSidebar() {
     const atual = document.body.dataset.page;
 
     const nav = document.createElement('nav');
+    nav.className = 'nav nav-pills flex-column gap-1';
 
     for (const entrada of MENU) {
         nav.appendChild(
             entrada.itens 
                 ? criarGrupo(entrada, base, atual) 
-                : criarPaginaLink(entrada, base, atual)
+                : criarLinkSolto(entrada, base, atual)
         );
     }
 

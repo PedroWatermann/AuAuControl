@@ -16,52 +16,54 @@
 </head>
 
 
-<body data-page="inicio" data-path-base="">
-    <aside id="sidebar"></aside>
+<body class="d-md-flex min-vh-100 bg-body-tertiary" data-page="inicio" data-path-base="">
+    <aside id="sidebar" class="col-md-3 col-xl-2 d-flex flex-column p-3 text-bg-dark"></aside>
 
-    <main>
-        <header class="mb-4">
-            <h1 class="fw-bold">Início</h1>
-            <p class="text-body-secondary mb-0">Resumo do que está cadastrado no sistema.</p>
-        </header>
+    <div class="flex-grow-1 d-flex flex-column overflow-x-auto">
+        <main class="flex-grow-1 p-4 p-lg-5">
+            <header class="mb-4">
+                <h1 class="fw-bold text-primary">Início</h1>
+                <p class="text-body-secondary mb-0">Resumo do que está cadastrado no sistema.</p>
+            </header>
 
-        <section>
-            <article class="card card-body shadow-sm">
-                <h2 class="card-title fs-5 fw-bold mb-3">Clientes cadastrados</h2>
-                <p id="total-clientes">Gráfico da quantidade de clientes cadastrados</p>
-            </article>
+            <section>
+                <article class="card card-body shadow-sm">
+                    <h2 class="card-title fs-5 fw-bold mb-3">Clientes cadastrados</h2>
+                    <p id="total-clientes">Gráfico da quantidade de clientes cadastrados</p>
+                </article>
 
-            <article class="card card-body shadow-sm">
-                <h2 class="card-title fs-5 fw-bold mb-3">Funcionários cadastrados</h2>
-                <p id="total-funcionarios">Gráfico da quantidade de funcionários cadastrados</p>
-            </article>
+                <article class="card card-body shadow-sm">
+                    <h2 class="card-title fs-5 fw-bold mb-3">Funcionários cadastrados</h2>
+                    <p id="total-funcionarios">Gráfico da quantidade de funcionários cadastrados</p>
+                </article>
 
-            <article class="card card-body shadow-sm">
-                <h2 class="card-title fs-5 fw-bold mb-3">Animais cadastrados</h2>
-                <p id="total-animais">Gráfico da quantidade de animais cadastrados</p>
-            </article>
+                <article class="card card-body shadow-sm">
+                    <h2 class="card-title fs-5 fw-bold mb-3">Animais cadastrados</h2>
+                    <p id="total-animais">Gráfico da quantidade de animais cadastrados</p>
+                </article>
 
-            <article class="card card-body shadow-sm">
-                <h2 class="card-title fs-5 fw-bold mb-3">Atendimentos realizados</h2>
-                <p id="total-atendimentos">Gráfico da quantidade de atendimentos realizados</p>
+                <article class="card card-body shadow-sm">
+                    <h2 class="card-title fs-5 fw-bold mb-3">Atendimentos realizados</h2>
+                    <p id="total-atendimentos">Gráfico da quantidade de atendimentos realizados</p>
 
-                <a href="pages/atendimentos.html" class="btn btn-primary rounded-pill px-4 fw-bold">Novo atendimento</a>
-            </article>
-        </section>
-    </main>
+                    <a href="pages/atendimentos.html" class="btn btn-primary rounded-pill px-4 fw-bold">Novo atendimento</a>
+                </article>
+            </section>
+        </main>
 
-    <footer>
-        <p>
-            Desenvolvido por Pedro Watermann
-            <a href="https://www.linkedin.com/in/pedrowatermann" target="_blank" rel="noopener">
-                <img src="assets/img/LinkedinLogo.png" alt="LinkedIn de Pedro Watermann">
-            </a>
-            e Vinicius Del Cielo
-            <a href="https://www.linkedin.com/in/vin%C3%ADcius-garcia-540246367" target="_blank" rel="noopener">
-                <img src="assets/img/LinkedinLogo.png" alt="LinkedIn de Vinicius Del Cielo">
-            </a>
-        </p>
-    </footer>
+        <footer class="px-4 px-lg-5 py-3 border-top small text-body-secondary">
+            <p>
+                Desenvolvido por Pedro Watermann
+                <a href="https://www.linkedin.com/in/pedrowatermann" target="_blank" rel="noopener">
+                    <img src="assets/img/LinkedinLogo.png" width="20" height="20" class="align-text-bottom" alt="LinkedIn de Pedro Watermann">
+                </a>
+                e Vinicius Del Cielo
+                <a href="https://www.linkedin.com/in/vin%C3%ADcius-garcia-540246367" target="_blank" rel="noopener">
+                    <img src="assets/img/LinkedinLogo.png" width="20" height="20" class="align-text-bottom" alt="LinkedIn de Vinicius Del Cielo">
+                </a>
+            </p>
+        </footer>
+    </div>
 
     <script src="src/utils/formatadores.js"></script>
     <script src="src/services/storage.js"></script>

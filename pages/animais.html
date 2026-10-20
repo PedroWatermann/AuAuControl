@@ -15,100 +15,102 @@
     <link rel="stylesheet" href="../assets/css/components.css">
 </head>
 
-<body data-page="animais" data-path-base="../">
-    <aside id="sidebar"></aside>
+<body class="d-md-flex min-vh-100 bg-body-tertiary" data-page="animais" data-path-base="../">
+    <aside id="sidebar" class="col-md-3 col-xl-2 d-flex flex-column p-3 text-bg-dark"></aside>
 
-    <main>
-        <header class="mb-4">
-            <h1 class="fw-bold">Animais</h1>
-            <p class="text-body-secondary mb-0">Cadastre novos animais e consulte, altere ou remova os que já estão no sistema.</p>
-        </header>
+    <div class="flex-grow-1 d-flex flex-column overflow-x-auto">
+        <main class="flex-grow-1 p-4 p-lg-5">
+            <header class="mb-4">
+                <h1 class="fw-bold text-primary">Animais</h1>
+                <p class="text-body-secondary mb-0">Cadastre novos animais e consulte, altere ou remova os que já estão no sistema.</p>
+            </header>
 
-        <div class="alert alert-success border-0 border-start border-4 border-success" id="message" role="status">
-            <!-- TODO: O texto abaixo é para testar o CSS. Será a view/controller que tornará este campo visível e preenchido (colocar um hidden depois) -->
-            Animal salvo: Nina
-        </div>
+            <div class="alert alert-success border-0 border-start border-4 border-success" id="message" role="status">
+                <!-- TODO: O texto abaixo é para testar o CSS. Será a view/controller que tornará este campo visível e preenchido (colocar um hidden depois) -->
+                Animal salvo: Nina
+            </div>
 
-        <section class="card card-body shadow-sm mb-4">
-            <h2 class="card-title fs-5 fw-bold mb-3">Novo animal</h2>
+            <section class="card card-body shadow-sm mb-4">
+                <h2 class="card-title fs-5 fw-bold mb-3">Novo animal</h2>
 
-            <form id="form-animal" class="row g-3">
-                <input type="text" name="id" id="id" hidden>
+                <form id="form-animal" class="row g-3">
+                    <input type="text" name="id" id="id" hidden>
 
-                <div class="col-12">
-                    <label class="form-label fw-semibold" for="nome">Nome</label>
-                    <input class="form-control" type="text" id="nome" name="nome" placeholder="Nina" required>
-                </div>
+                    <div class="col-12">
+                        <label class="form-label fw-semibold" for="nome">Nome</label>
+                        <input class="form-control" type="text" id="nome" name="nome" placeholder="Nina" required>
+                    </div>
 
-                <div class="col-md-6">
-                    <label class="form-label fw-semibold" for="peso">Peso (kg)</label>
-                    <input class="form-control" type="number" id="peso" name="peso" placeholder="7,5" min="0" step="0.01" required>
-                </div>
+                    <div class="col-md-6">
+                        <label class="form-label fw-semibold" for="peso">Peso (kg)</label>
+                        <input class="form-control" type="number" id="peso" name="peso" placeholder="7,5" min="0" step="0.01" required>
+                    </div>
 
-                <div class="col-md-6">
-                    <label class="form-label fw-semibold" for="altura">Altura (cm)</label>
-                    <input class="form-control" type="number" id="altura" name="altura" placeholder="35" min="0" step="0.1" required>
-                </div>
+                    <div class="col-md-6">
+                        <label class="form-label fw-semibold" for="altura">Altura (cm)</label>
+                        <input class="form-control" type="number" id="altura" name="altura" placeholder="35" min="0" step="0.1" required>
+                    </div>
 
-                <div class="col-12 d-flex gap-2">
-                    <button type="submit" class="btn btn-primary rounded-pill px-4 fw-bold">Salvar animal</button>
-                    <button type="reset" class="btn btn-outline-primary rounded-pill px-4 fw-bold">Limpar campos</button>
-                </div>
-            </form>
-        </section>
+                    <div class="col-12 d-flex gap-2">
+                        <button type="submit" class="btn btn-primary rounded-pill px-4 fw-bold">Salvar animal</button>
+                        <button type="reset" class="btn btn-outline-primary rounded-pill px-4 fw-bold">Limpar campos</button>
+                    </div>
+                </form>
+            </section>
 
-        <section class="card card-body shadow-sm mb-4">
-            <h2 class="card-title fs-5 fw-bold mb-3">Animais cadastrados</h2>
+            <section class="card card-body shadow-sm mb-4">
+                <h2 class="card-title fs-5 fw-bold mb-3">Animais cadastrados</h2>
 
-            <form role="search">
-                <div class="d-flex gap-3 mb-3">
-                    <input class="form-control" type="text" name="busca" id="busca" placeholder="Buscar por nome"
-                        aria-label="Buscar por nome">
-                    <button class="btn btn-primary rounded-pill px-4 fw-bold">Buscar</button>
-                </div>
-            </form>
+                <form role="search">
+                    <div class="d-flex gap-3 mb-3">
+                        <input class="form-control" type="text" name="busca" id="busca" placeholder="Buscar por nome"
+                            aria-label="Buscar por nome">
+                        <button class="btn btn-primary rounded-pill px-4 fw-bold">Buscar</button>
+                    </div>
+                </form>
 
-            <table class="table align-middle mb-0">
-                <thead>
-                    <tr>
-                        <th>Nº</th>
-                        <th>Nome</th>
-                        <th>Peso</th>
-                        <th>Altura</th>
-                        <th><span class="visually-hidden">Ações</span></th>
-                    </tr>
-                </thead>
-                <tbody class="table-group-divider" id="table-animais">
-                    <!-- TODO: O conteúdo abaixo é para testar o CSS. Os dados reais serão preenchidos pela view/controller -->
-                    <tr>
-                        <td><span class="badge rounded-pill text-bg-warning px-3">1</span></td>
-                        <td>Nina</td>
-                        <td>7,5 kg</td>
-                        <td>35 cm</td>
-                        <td>
-                            <div class="d-flex gap-2 justify-content-end">
-                                <button type="button" class="btn btn-sm btn-outline-primary rounded-pill px-3 fw-semibold">Alterar</button>
-                                <button type="button" class="btn btn-sm btn-outline-danger rounded-pill px-3 fw-semibold">Remover</button>
-                            </div>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </section>
-    </main>
+                <table class="table align-middle mb-0">
+                    <thead>
+                        <tr>
+                            <th class="text-primary">Nº</th>
+                            <th class="text-primary">Nome</th>
+                            <th class="text-primary">Peso</th>
+                            <th class="text-primary">Altura</th>
+                            <th class="text-primary"><span class="visually-hidden">Ações</span></th>
+                        </tr>
+                    </thead>
+                    <tbody class="table-group-divider" id="table-animais">
+                        <!-- TODO: O conteúdo abaixo é para testar o CSS. Os dados reais serão preenchidos pela view/controller -->
+                        <tr>
+                            <td><span class="badge rounded-pill text-bg-warning px-3">1</span></td>
+                            <td>Nina</td>
+                            <td>7,5 kg</td>
+                            <td>35 cm</td>
+                            <td>
+                                <div class="d-flex gap-2 justify-content-end">
+                                    <button type="button" class="btn btn-sm btn-outline-primary rounded-pill px-3 fw-semibold">Alterar</button>
+                                    <button type="button" class="btn btn-sm btn-outline-danger rounded-pill px-3 fw-semibold">Remover</button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+        </main>
 
-    <footer>
-        <p>
-            Desenvolvido por Pedro Watermann
-            <a href="https://www.linkedin.com/in/pedrowatermann" target="_blank" rel="noopener">
-                <img src="../assets/img/LinkedinLogo.png" alt="LinkedIn de Pedro Watermann">
-            </a>
-            e Vinicius Del Cielo
-            <a href="https://www.linkedin.com/in/vin%C3%ADcius-garcia-540246367" target="_blank" rel="noopener">
-                <img src="../assets/img/LinkedinLogo.png" alt="LinkedIn de Vinicius Del Cielo">
-            </a>
-        </p>
-    </footer>
+        <footer class="px-4 px-lg-5 py-3 border-top small text-body-secondary">
+            <p>
+                Desenvolvido por Pedro Watermann
+                <a href="https://www.linkedin.com/in/pedrowatermann" target="_blank" rel="noopener">
+                    <img src="../assets/img/LinkedinLogo.png" width="20" height="20" class="align-text-bottom" alt="LinkedIn de Pedro Watermann">
+                </a>
+                e Vinicius Del Cielo
+                <a href="https://www.linkedin.com/in/vin%C3%ADcius-garcia-540246367" target="_blank" rel="noopener">
+                    <img src="../assets/img/LinkedinLogo.png" width="20" height="20" class="align-text-bottom" alt="LinkedIn de Vinicius Del Cielo">
+                </a>
+            </p>
+        </footer>
+    </div>
 
     <script src="../src/utils/validacoes.js"></script>
     <script src="../src/utils/formatadores.js"></script>

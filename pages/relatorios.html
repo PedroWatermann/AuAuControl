@@ -15,55 +15,57 @@
     <link rel="stylesheet" href="../assets/css/components.css">
 </head>
 
-<body data-page="relatorios" data-path-base="../">
-    <aside id="sidebar"></aside>
+<body class="d-md-flex min-vh-100 bg-body-tertiary" data-page="relatorios" data-path-base="../">
+    <aside id="sidebar" class="col-md-3 col-xl-2 d-flex flex-column p-3 text-bg-dark"></aside>
 
-    <main>
-        <header class="mb-4">
-            <h1 class="fw-bold">Relatórios</h1>
-            <p id="relatorio-resumo" class="text-body-secondary mb-0">Escolha qual relatório deseja visualizar.</p>
-        </header>
+    <div class="flex-grow-1 d-flex flex-column overflow-x-auto">
+        <main class="flex-grow-1 p-4 p-lg-5">
+            <header class="mb-4">
+                <h1 class="fw-bold text-primary">Relatórios</h1>
+                <p id="relatorio-resumo" class="text-body-secondary mb-0">Escolha qual relatório deseja visualizar.</p>
+            </header>
 
-        <section class="card card-body shadow-sm mb-4">
-            <form id="form-relatorio" class="row g-3 align-items-end">
-                <div class="col-md-6">
-                    <label class="form-label fw-semibold" for="tipo-relatorio">Tipo de relatório</label>
-                    <select class="form-select" id="tipo-relatorio" name="tipo">
-                        <option value="clientes" selected>Clientes</option>
-                        <option value="funcionarios">Funcionários</option>
-                        <option value="animais">Animais</option>
-                        <option value="atendimentos">Atendimentos</option>
-                    </select>
-                </div>
+            <section class="card card-body shadow-sm mb-4">
+                <form id="form-relatorio" class="row g-3 align-items-end">
+                    <div class="col-md-6">
+                        <label class="form-label fw-semibold" for="tipo-relatorio">Tipo de relatório</label>
+                        <select class="form-select" id="tipo-relatorio" name="tipo">
+                            <option value="clientes" selected>Clientes</option>
+                            <option value="funcionarios">Funcionários</option>
+                            <option value="animais">Animais</option>
+                            <option value="atendimentos">Atendimentos</option>
+                        </select>
+                    </div>
 
-                <div class="col-md-6 d-flex justify-content-md-end">
-                    <button type="button" class="btn btn-outline-primary rounded-pill px-4 fw-bold" id="btn-imprimir">Imprimir relatório</button>
-                </div>
-            </form>
-        </section>
+                    <div class="col-md-6 d-flex justify-content-md-end">
+                        <button type="button" class="btn btn-outline-primary rounded-pill px-4 fw-bold" id="btn-imprimir">Imprimir relatório</button>
+                    </div>
+                </form>
+            </section>
 
-        <section class="card card-body shadow-sm mb-4">
-            <h2 id="relatorio-titulo" class="card-title fs-5 fw-bold mb-3">Relatório de clientes</h2>
+            <section class="card card-body shadow-sm mb-4">
+                <h2 id="relatorio-titulo" class="card-title fs-5 fw-bold mb-3">Relatório de clientes</h2>
 
-            <table class="table align-middle mb-0">
-                <thead id="relatorio-cabecalho"></thead>
-                <tbody class="table-group-divider" id="relatorio-corpo"></tbody>
-            </table>
-        </section>
-    </main>
+                <table class="table align-middle mb-0">
+                    <thead id="relatorio-cabecalho"></thead>
+                    <tbody class="table-group-divider" id="relatorio-corpo"></tbody>
+                </table>
+            </section>
+        </main>
 
-    <footer>
-        <p>
-            Desenvolvido por Pedro Watermann
-            <a href="https://www.linkedin.com/in/pedrowatermann" target="_blank" rel="noopener">
-                <img src="../assets/img/LinkedinLogo.png" alt="LinkedIn de Pedro Watermann">
-            </a>
-            e Vinicius Del Cielo
-            <a href="https://www.linkedin.com/in/vin%C3%ADcius-garcia-540246367" target="_blank" rel="noopener">
-                <img src="../assets/img/LinkedinLogo.png" alt="LinkedIn de Vinicius Del Cielo">
-            </a>
-        </p>
-    </footer>
+        <footer class="px-4 px-lg-5 py-3 border-top small text-body-secondary">
+            <p>
+                Desenvolvido por Pedro Watermann
+                <a href="https://www.linkedin.com/in/pedrowatermann" target="_blank" rel="noopener">
+                    <img src="../assets/img/LinkedinLogo.png" width="20" height="20" class="align-text-bottom" alt="LinkedIn de Pedro Watermann">
+                </a>
+                e Vinicius Del Cielo
+                <a href="https://www.linkedin.com/in/vin%C3%ADcius-garcia-540246367" target="_blank" rel="noopener">
+                    <img src="../assets/img/LinkedinLogo.png" width="20" height="20" class="align-text-bottom" alt="LinkedIn de Vinicius Del Cielo">
+                </a>
+            </p>
+        </footer>
+    </div>
 
     <script src="../src/utils/formatadores.js"></script>
     <script src="../src/services/storage.js"></script>
