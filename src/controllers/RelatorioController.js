@@ -3,21 +3,21 @@ document.addEventListener('DOMContentLoaded', () =>
 );
 
 function iniciar() {
-    RelatorioView.aoTrocarTipo(() => this.carregar());
-    RelatorioView.aoClicarImprimir(() => RelatorioView.imprimir());
+    aoTrocarTipo(() => carregar());
+    aoClicarImprimir(() => imprimir());
 
-    this.carregar();
+    carregar();
 }
 
 function carregar() {
-    const tipo = RelatorioView.obterTipoSelecionado();
-    let lista = this.lerLista(tipo);
+    const tipo = obterTipoSelecionado();
+    let lista = lerLista(tipo);
 
     if (tipo === 'atendimentos') {
-        lista = this.prepararAtendimentos(lista);
+        lista = prepararAtendimentos(lista);
     }
 
-    RelatorioView.renderizar(tipo, lista);
+    renderizar(tipo, lista);
 }
 
 // TODO: quando o storage.js estiver pronto, trocar por ele
@@ -30,9 +30,9 @@ function lerLista(chave) {
 }
 
 function prepararAtendimentos(atendimentos) {
-    const clientes = this.lerLista('clientes');
-    const animais = this.lerLista('animais');
-    const funcionarios = this.lerLista('funcionarios');
+    const clientes = lerLista('clientes');
+    const animais = lerLista('animais');
+    const funcionarios = lerLista('funcionarios');
 
     const nomeDe = (valor, listaReferencia) => {
         if (!valor) return '';

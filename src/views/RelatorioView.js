@@ -1,9 +1,5 @@
-// Configuração de cada relatório: título, texto do resumo e colunas da tabela.
-// Cada coluna diz o texto do cabeçalho e como tirar o valor de um item da lista.
 const RELATORIOS = {
     clientes: {
-        titulo: 'Relatório de clientes',
-        nomePlural: 'clientes cadastrados',
         mensagemVazio: 'Nenhum cliente cadastrado.',
         colunas: [
             { titulo: 'Nome', valor: item => item.nome },
@@ -14,8 +10,6 @@ const RELATORIOS = {
         ]
     },
     funcionarios: {
-        titulo: 'Relatório de funcionários',
-        nomePlural: 'funcionários cadastrados',
         mensagemVazio: 'Nenhum funcionário cadastrado.',
         colunas: [
             { titulo: 'Nome', valor: item => item.nome },
@@ -26,8 +20,6 @@ const RELATORIOS = {
         ]
     },
     animais: {
-        titulo: 'Relatório de animais',
-        nomePlural: 'animais cadastrados',
         mensagemVazio: 'Nenhum animal cadastrado.',
         colunas: [
             { titulo: 'Nome', valor: item => item.nome },
@@ -36,8 +28,6 @@ const RELATORIOS = {
         ]
     },
     atendimentos: {
-        titulo: 'Relatório de atendimentos',
-        nomePlural: 'atendimentos registrados',
         mensagemVazio: 'Nenhum atendimento registrado.',
         colunas: [
             { titulo: 'Código', valor: item => item.id },
@@ -65,14 +55,15 @@ function renderizar(tipo, lista) {
     const config = RELATORIOS[tipo];
     if (!config) return;
 
-    document.getElementById('relatorio-titulo').textContent = config.titulo;
     document.getElementById('relatorio-resumo').textContent =
         lista.length === 0
             ? config.mensagemVazio
             : `Todos os ${config.nomePlural}, ${lista.length} no total.`;
 
-    this.renderizarCabecalho(config.colunas);
-    this.renderizarCorpo(config.colunas, lista);
+    document.getElementById('btn-imprimir').disabled = lista.length === 0;
+
+    renderizarCabecalho(config.colunas);
+    renderizarCorpo(config.colunas, lista);
 }
 
 function renderizarCabecalho(colunas) {
@@ -105,7 +96,7 @@ function renderizarCorpo(colunas, lista) {
         const td = document.createElement('td');
         td.colSpan = colunas.length + 1;
         td.className = 'text-center text-body-secondary py-4';
-        td.textContent = RELATORIOS[RelatorioView.obterTipoSelecionado()].mensagemVazio;
+        td.textContent = RELATORIOS[obterTipoSelecionado()].mensagemVazio;
         tr.appendChild(td);
         tbody.appendChild(tr);
         return;
@@ -123,7 +114,6 @@ function renderizarCorpo(colunas, lista) {
 
         for (const coluna of colunas) {
             const td = document.createElement('td');
-            // textContent (e não innerHTML) para o texto digitado pelo usuário nunca virar HTML
             td.textContent = coluna.valor(item) ?? '';
             tr.appendChild(td);
         }

@@ -67,7 +67,6 @@ function criarPaginaLink(item, base, atual) {
     return a;
 }
 
-// Link fora de grupo (ex.: Relatórios): mesmo destaque amarelo dos títulos dos grupos
 function criarLinkSolto(item, base, atual) {
     const a = criarPaginaLink(item, base, atual);
     a.classList.add('text-warning', 'fw-bold');
@@ -83,7 +82,7 @@ function criarGrupo(grupo, base, atual) {
     const ul = document.createElement('ul');
     ul.className = 'nav nav-pills flex-column gap-1 mb-2';
 
-    for (const item of grupo.itens) {
+    for (const item of grupo.itens.sort((a, b) => a.texto.localeCompare(b.texto))) {
         const li = document.createElement('li');
         li.className = 'nav-item';
         const link = criarPaginaLink(item, base, atual);
@@ -111,8 +110,8 @@ function preencherSidebar() {
 
     for (const entrada of MENU) {
         nav.appendChild(
-            entrada.itens 
-                ? criarGrupo(entrada, base, atual) 
+            entrada.itens
+                ? criarGrupo(entrada, base, atual)
                 : criarLinkSolto(entrada, base, atual)
         );
     }

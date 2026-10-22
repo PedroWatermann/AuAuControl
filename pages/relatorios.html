@@ -27,9 +27,10 @@
 
             <section class="card card-body shadow-sm mb-4">
                 <form id="form-relatorio" class="row g-3 align-items-end">
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <label class="form-label fw-semibold" for="tipo-relatorio">Tipo de relatório</label>
                         <select class="form-select" id="tipo-relatorio" name="tipo">
+                            <!-- TODO: Isso também será preenchido via JS, tá aqui só pra teste -->
                             <option value="clientes" selected>Clientes</option>
                             <option value="funcionarios">Funcionários</option>
                             <option value="animais">Animais</option>
@@ -37,14 +38,10 @@
                         </select>
                     </div>
 
-                    <div class="col-md-6 d-flex justify-content-md-end">
+                    <div class="col-md-auto ms-auto d-flex justify-content-md-end">
                         <button type="button" class="btn btn-outline-primary rounded-pill px-4 fw-bold" id="btn-imprimir">Imprimir relatório</button>
                     </div>
                 </form>
-            </section>
-
-            <section class="card card-body shadow-sm mb-4">
-                <h2 id="relatorio-titulo" class="card-title fs-5 fw-bold mb-3">Relatório de clientes</h2>
 
                 <table class="table align-middle mb-0">
                     <thead id="relatorio-cabecalho"></thead>
