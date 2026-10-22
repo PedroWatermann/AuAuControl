@@ -101,7 +101,7 @@ function criarGrupo(grupo, base, atual) {
 
 function preencherSidebar() {
     const sidebar = document.getElementById('sidebar');
-    sidebar.classList = 'col-md-3 col-xl-2 d-flex flex-column p-3';
+    sidebar.classList = 'col-md-3 col-xl-2 d-flex flex-column p-3 d-print-none';
     const base = document.body.dataset.pathBase ?? '';
     const atual = document.body.dataset.page;
 

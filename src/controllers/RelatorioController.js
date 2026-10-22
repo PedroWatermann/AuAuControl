@@ -3,21 +3,68 @@ document.addEventListener('DOMContentLoaded', () =>
 );
 
 function iniciar() {
+    selecionarTipo(lerTipoDaUrl() || lerUltimoTipo());
+
     aoTrocarTipo(() => carregar());
     aoClicarImprimir(() => imprimir());
+    aoPrepararImpressao(() => atualizarEmissao(`Emitido em ${formatarDataHora(new Date())}`));
+
+    window.addEventListener('hashchange', () => {
+        if (lerTipoDaUrl() !== obterTipoSelecionado()) {
+            selecionarTipo(lerTipoDaUrl());
+            carregar();
+        }
+    });
 
     carregar();
 }
 
 function carregar() {
     const tipo = obterTipoSelecionado();
+    alterarTipoNaUrl(tipo);
+    gravarUltimoTipo(tipo);
+
     let lista = lerLista(tipo);
 
     if (tipo === 'atendimentos') {
         lista = prepararAtendimentos(lista);
     }
 
-    renderizar(tipo, lista);
+    renderizar(tipo, ordenar(tipo, lista));
+}
+
+function lerTipoDaUrl() {
+    return decodeURIComponent(location.hash.slice(1));
+}
+
+function alterarTipoNaUrl(tipo) {
+    location.replace('#' + tipo);
+}
+
+function lerUltimoTipo() {
+    try {
+        return sessionStorage.getItem('relatorio-tipo');
+    } catch {
+        return null;
+    }
+}
+
+function gravarUltimoTipo(tipo) {
+    try {
+        sessionStorage.setItem('relatorio-tipo', tipo);
+    } catch { }
+}
+
+function ordenar(tipo, lista) {
+    const copia = [...lista];
+
+    return tipo === 'atendimentos'
+        ? copia.sort((a, b) =>
+            String(b.data ?? '').localeCompare(String(a.data ?? ''))
+        )
+        : copia.sort((a, b) =>
+            String(a.nome ?? '').localeCompare(String(b.nome ?? ''), 'pt-BR', { sensitivity: 'base' })
+        );
 }
 
 // TODO: quando o storage.js estiver pronto, trocar por ele

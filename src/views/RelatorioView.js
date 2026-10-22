@@ -1,5 +1,6 @@
 const RELATORIOS = {
     clientes: {
+        nomePlural: 'clientes',
         mensagemVazio: 'Nenhum cliente cadastrado.',
         colunas: [
             { titulo: 'Nome', valor: item => item.nome },
@@ -10,6 +11,7 @@ const RELATORIOS = {
         ]
     },
     funcionarios: {
+        nomePlural: 'funcionários',
         mensagemVazio: 'Nenhum funcionário cadastrado.',
         colunas: [
             { titulo: 'Nome', valor: item => item.nome },
@@ -20,6 +22,7 @@ const RELATORIOS = {
         ]
     },
     animais: {
+        nomePlural: 'animais',
         mensagemVazio: 'Nenhum animal cadastrado.',
         colunas: [
             { titulo: 'Nome', valor: item => item.nome },
@@ -28,6 +31,7 @@ const RELATORIOS = {
         ]
     },
     atendimentos: {
+        nomePlural: 'atendimentos',
         mensagemVazio: 'Nenhum atendimento registrado.',
         colunas: [
             { titulo: 'Código', valor: item => item.id },
@@ -43,12 +47,26 @@ function obterTipoSelecionado() {
     return document.getElementById('tipo-relatorio').value;
 }
 
+function selecionarTipo(tipo) {
+    if (RELATORIOS[tipo]) {
+        document.getElementById('tipo-relatorio').value = tipo;
+    }
+}
+
 function aoTrocarTipo(callback) {
     document.getElementById('tipo-relatorio').addEventListener('change', callback);
 }
 
 function aoClicarImprimir(callback) {
     document.getElementById('btn-imprimir').addEventListener('click', callback);
+}
+
+function aoPrepararImpressao(callback) {
+    window.addEventListener('beforeprint', callback);
+}
+
+function atualizarEmissao(texto) {
+    document.getElementById('impressao-emissao').textContent = texto;
 }
 
 function renderizar(tipo, lista) {
@@ -61,6 +79,9 @@ function renderizar(tipo, lista) {
             : `Todos os ${config.nomePlural}, ${lista.length} no total.`;
 
     document.getElementById('btn-imprimir').disabled = lista.length === 0;
+
+    document.getElementById('impressao-titulo').textContent = `AuAu Control: Relatório de ${config.nomePlural}`;
+    document.getElementById('impressao-total').textContent = `Total de registros: ${lista.length}`;
 
     renderizarCabecalho(config.colunas);
     renderizarCorpo(config.colunas, lista);
