@@ -33,33 +33,44 @@
                 <form id="form-atendimento" class="row g-3">
                     <input type="text" name="id" id="id" hidden>
 
+                    <p class="col-12 small text-body-secondary mb-0">Campos com <span class="text-danger">*</span> são obrigatórios.</p>
+
                     <div class="col-md-6">
-                        <label class="form-label fw-semibold" for="data">Data</label>
+                        <label class="form-label fw-semibold" for="data">Data <span class="text-danger" aria-hidden="true">*</span></label>
                         <input class="form-control" type="date" id="data" name="data" required>
                     </div>
 
                     <div class="col-md-6">
-                        <label class="form-label fw-semibold" for="cliente">Cliente</label>
-                        <select class="form-select" id="cliente" name="cliente" required>
-                            <option value="">Selecione um cliente</option>
+                        <label class="form-label fw-semibold" for="cliente">Cliente <span class="text-danger" aria-hidden="true">*</span></label>
+                        <select class="form-select" id="cliente" name="cliente" required aria-describedby="cliente-vazio">
+                            <option value="" selected disabled>Selecione um cliente</option>
                         </select>
+                        <div id="cliente-vazio" class="form-text" hidden>
+                            Nenhum cliente cadastrado. <a href="clientes.html">Cadastrar cliente</a>
+                        </div>
                     </div>
 
                     <div class="col-md-6">
-                        <label class="form-label fw-semibold" for="animal">Animal</label>
-                        <select class="form-select" id="animal" name="animal" required>
-                            <option value="">Selecione um animal</option>
+                        <label class="form-label fw-semibold" for="animal">Animal <span class="text-danger" aria-hidden="true">*</span></label>
+                        <select class="form-select" id="animal" name="animal" required aria-describedby="animal-vazio">
+                            <option value="" selected disabled>Selecione um animal</option>
                         </select>
+                        <div id="animal-vazio" class="form-text" hidden>
+                            Nenhum animal cadastrado. <a href="animais.html">Cadastrar animal</a>
+                        </div>
                     </div>
 
                     <div class="col-md-6">
-                        <label class="form-label fw-semibold" for="funcionario">Funcionário</label>
-                        <select class="form-select" id="funcionario" name="funcionario" required>
-                            <option value="">Selecione um funcionário</option>
+                        <label class="form-label fw-semibold" for="funcionario">Funcionário <span class="text-danger" aria-hidden="true">*</span></label>
+                        <select class="form-select" id="funcionario" name="funcionario" required aria-describedby="funcionario-vazio">
+                            <option value="" selected disabled>Selecione um funcionário</option>
                         </select>
+                        <div id="funcionario-vazio" class="form-text" hidden>
+                            Nenhum funcionário cadastrado. <a href="funcionarios.html">Cadastrar funcionário</a>
+                        </div>
                     </div>
 
-                    <div class="col-12 d-flex gap-2">
+                    <div class="col-12 d-flex flex-column flex-sm-row gap-2">
                         <button type="submit" class="btn btn-primary rounded-pill px-4 fw-bold">Salvar atendimento</button>
                         <button type="reset" class="btn btn-outline-primary rounded-pill px-4 fw-bold">Limpar campos</button>
                     </div>
@@ -70,41 +81,43 @@
                 <h2 class="card-title fs-5 fw-bold mb-3">Atendimentos cadastrados</h2>
 
                 <form role="search">
-                    <div class="d-flex gap-3 mb-3">
+                    <div class="d-flex flex-column flex-sm-row gap-2 gap-sm-3 mb-3">
                         <input class="form-control" type="text" name="busca" id="busca" placeholder="Buscar por código ou cliente"
                             aria-label="Buscar por código ou cliente">
                         <button class="btn btn-primary rounded-pill px-4 fw-bold">Buscar</button>
                     </div>
                 </form>
 
-                <table class="table align-middle mb-0">
-                    <thead>
-                        <tr>
-                            <th class="text-primary">Código</th>
-                            <th class="text-primary">Data</th>
-                            <th class="text-primary">Cliente</th>
-                            <th class="text-primary">Animal</th>
-                            <th class="text-primary">Funcionário</th>
-                            <th class="text-primary"><span class="visually-hidden">Ações</span></th>
-                        </tr>
-                    </thead>
-                    <tbody class="table-group-divider" id="table-atendimentos">
-                        <!-- TODO: O conteúdo abaixo é para testar o CSS. Os dados reais serão preenchidos pela view/controller -->
-                        <tr>
-                            <td><span class="badge rounded-pill text-bg-warning px-3">1</span></td>
-                            <td>12/10/2026</td>
-                            <td>Maria Souza</td>
-                            <td>Nina</td>
-                            <td>Carlos Mendes</td>
-                            <td>
-                                <div class="d-flex gap-2 justify-content-end">
-                                    <button type="button" class="btn btn-sm btn-outline-primary rounded-pill px-3 fw-semibold">Alterar</button>
-                                    <button type="button" class="btn btn-sm btn-outline-danger rounded-pill px-3 fw-semibold">Remover</button>
-                                </div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+                <div class="table-responsive">
+                    <table class="table align-middle mb-0">
+                        <thead>
+                            <tr>
+                                <th class="text-primary">Código</th>
+                                <th class="text-primary">Data</th>
+                                <th class="text-primary">Cliente</th>
+                                <th class="text-primary">Animal</th>
+                                <th class="text-primary">Funcionário</th>
+                                <th class="text-primary"><span class="visually-hidden">Ações</span></th>
+                            </tr>
+                        </thead>
+                        <tbody class="table-group-divider" id="table-atendimentos">
+                            <!-- TODO: O conteúdo abaixo é para testar o CSS. Os dados reais serão preenchidos pela view/controller -->
+                            <tr>
+                                <td><span class="badge rounded-pill text-bg-warning px-3">1</span></td>
+                                <td>12/10/2026</td>
+                                <td>Maria Souza</td>
+                                <td>Nina</td>
+                                <td>Carlos Mendes</td>
+                                <td>
+                                    <div class="d-flex gap-2 justify-content-end">
+                                        <button type="button" class="btn btn-sm btn-outline-primary rounded-pill px-3 fw-semibold">Alterar</button>
+                                        <button type="button" class="btn btn-sm btn-outline-danger rounded-pill px-3 fw-semibold">Remover</button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </section>
         </main>
 
