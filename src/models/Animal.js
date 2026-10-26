@@ -1,5 +1,6 @@
 class Animal {
-    constructor(nome, peso, altura) {
+    constructor(id, nome, peso, altura) {
+        this.id = id;
         this.nome = nome;
         this.peso = peso;
         this.altura = altura;

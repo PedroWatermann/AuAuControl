@@ -66,13 +66,8 @@ const RelatorioController = {
             );
     },
 
-    // TODO: quando o storage.js estiver pronto, trocar por ele
     lerLista(chave) {
-        try {
-            return JSON.parse(localStorage.getItem(chave)) || [];
-        } catch {
-            return [];
-        }
+        return StorageService.listar(chave);
     },
 
     prepararAtendimentos(atendimentos) {

@@ -1,5 +1,6 @@
 class Funcionario {
-    constructor(nome, numeroMatricula, qualificacao, descricaoFuncao, cargaHorariaSemanal) {
+    constructor(id, nome, numeroMatricula, qualificacao, descricaoFuncao, cargaHorariaSemanal) {
+        this.id = id;
         this.nome = nome;
         this.numeroMatricula = numeroMatricula;
         this.qualificacao = qualificacao;
