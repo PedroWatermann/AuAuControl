@@ -28,3 +28,47 @@ details[open]>summary.dropdown-toggle::after {
 }
 
 /* #endregion */
+
+/* #region Modal */
+dialog {
+    width: min(28rem, calc(100% - 2rem));
+}
+
+dialog::backdrop {
+    background-color: rgba(from var(--azul-escuro) r g b / 0.5);
+}
+
+/* #endregion */
+
+/* #region Impressão */
+@media print {
+
+    .table-responsive,
+    .overflow-x-auto {
+        overflow: visible !important;
+    }
+
+    main {
+        padding: 0 !important;
+    }
+
+    .card {
+        border: 0;
+        padding: 0 !important;
+        box-shadow: none !important;
+    }
+
+    .table {
+        font-size: 10pt;
+    }
+
+    .table tr {
+        break-inside: avoid;
+    }
+
+    .badge {
+        print-color-adjust: exact;
+    }
+}
+
+/* #endregion */

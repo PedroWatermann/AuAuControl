@@ -4,42 +4,106 @@ const RelatorioView = {
             nomePlural: 'clientes',
             mensagemVazio: 'Nenhum cliente cadastrado.',
             colunas: [
-                { titulo: 'Nome', valor: item => item.nome },
-                { titulo: 'Telefone', valor: item => item.telefone },
-                { titulo: 'E-mail', valor: item => item.email },
-                { titulo: 'RG', valor: item => item.rg },
-                { titulo: 'CPF', valor: item => item.cpf }
+                { 
+                    titulo: 'Nome', 
+                    valor: item => item.nome 
+                },
+                { 
+                    titulo: 'Telefone', 
+                    valor: item => item.telefone, 
+                    classe: 'text-nowrap' 
+                },
+                { 
+                    titulo: 'E-mail', 
+                    valor: item => item.email, 
+                    classe: 'text-break' 
+                },
+                { 
+                    titulo: 'RG', 
+                    valor: item => item.rg, 
+                    classe: 'text-nowrap' 
+                },
+                { 
+                    titulo: 'CPF', 
+                    valor: item => item.cpf, 
+                    classe: 'text-nowrap' 
+                }
             ]
         },
         funcionarios: {
             nomePlural: 'funcionários',
             mensagemVazio: 'Nenhum funcionário cadastrado.',
             colunas: [
-                { titulo: 'Nome', valor: item => item.nome },
-                { titulo: 'Matrícula', valor: item => item.numeroMatricula },
-                { titulo: 'Qualificação', valor: item => item.qualificacao },
-                { titulo: 'Função', valor: item => item.descricaoFuncao },
-                { titulo: 'Carga horária', valor: item => item.cargaHorariaSemanal ? item.cargaHorariaSemanal + ' h/semana' : '' }
+                { 
+                    titulo: 'Nome', 
+                    valor: item => item.nome 
+                },
+                { 
+                    titulo: 'Matrícula', 
+                    valor: item => item.numeroMatricula, 
+                    classe: 'text-nowrap' 
+                },
+                { 
+                    titulo: 'Qualificação', 
+                    valor: item => item.qualificacao 
+                },
+                { 
+                    titulo: 'Função', 
+                    valor: item => item.descricaoFuncao 
+                },
+                { 
+                    titulo: 'Carga horária', 
+                    valor: item => item.cargaHorariaSemanal ? item.cargaHorariaSemanal + ' h/semana' : '', 
+                    classe: 'text-nowrap' 
+                }
             ]
         },
         animais: {
             nomePlural: 'animais',
             mensagemVazio: 'Nenhum animal cadastrado.',
             colunas: [
-                { titulo: 'Nome', valor: item => item.nome },
-                { titulo: 'Peso', valor: item => item.peso ? item.peso + ' kg' : '' },
-                { titulo: 'Altura', valor: item => item.altura ? item.altura + ' cm' : '' }
+                { 
+                    titulo: 'Nome', 
+                    valor: item => item.nome 
+                },
+                { 
+                    titulo: 'Peso', 
+                    valor: item => item.peso ? Utils.formatarNumero(item.peso) + ' kg' : '', 
+                    classe: 'text-nowrap' 
+                },
+                { 
+                    titulo: 'Altura', 
+                    valor: item => item.altura ? Utils.formatarNumero(item.altura) + ' cm' : '', 
+                    classe: 'text-nowrap' 
+                }
             ]
         },
         atendimentos: {
             nomePlural: 'atendimentos',
             mensagemVazio: 'Nenhum atendimento registrado.',
             colunas: [
-                { titulo: 'Código', valor: item => item.id },
-                { titulo: 'Data', valor: item => Utils.formatarDataRelatorio(item.data) },
-                { titulo: 'Cliente', valor: item => item.cliente },
-                { titulo: 'Animal', valor: item => item.animal },
-                { titulo: 'Funcionário', valor: item => item.funcionario }
+                { 
+                    titulo: 'Código', 
+                    valor: item => item.id, 
+                    classe: 'text-nowrap' 
+                },
+                { 
+                    titulo: 'Data', 
+                    valor: item => Utils.formatarDataRelatorio(item.data), 
+                    classe: 'text-nowrap' 
+                },
+                { 
+                    titulo: 'Cliente', 
+                    valor: item => item.cliente 
+                },
+                { 
+                    titulo: 'Animal', 
+                    valor: item => item.animal 
+                },
+                { 
+                    titulo: 'Funcionário', 
+                    valor: item => item.funcionario 
+                }
             ]
         }
     },
@@ -136,6 +200,7 @@ const RelatorioView = {
 
             for (const coluna of config.colunas) {
                 const td = document.createElement('td');
+                td.className = coluna.classe ?? '';
                 td.textContent = coluna.valor(item) ?? '';
                 tr.appendChild(td);
             }

@@ -25,12 +25,12 @@
                 <p class="text-body-secondary mb-0">Cadastre novos clientes e consulte, altere ou remova os que já estão no sistema.</p>
             </header>
 
-            <div class="alert alert-success border-0 border-start border-4 border-success" id="message" role="status" hidden></div>
+            <div class="alert alert-success border-0 border-start border-4 border-success shadow fade position-fixed top-0 end-0 m-3 z-3" id="message" role="status" hidden></div>
 
             <section class="card card-body shadow-sm mb-4">
-                <h2 class="card-title fs-5 fw-bold mb-3">Novo cliente</h2>
+                <h2 class="card-title fs-5 fw-bold mb-3" data-texto-edicao="Alterar cliente">Novo cliente</h2>
 
-                <form id="form-cliente" class="row g-3">
+                <form id="form-cliente" class="row g-3" novalidate>
                     <input type="text" name="id" id="id" hidden>
 
                     <p class="col-12 small text-body-secondary mb-0">Campos com <span class="text-danger">*</span> são obrigatórios.</p>
@@ -58,8 +58,8 @@
                     </div>
 
                     <div class="col-12 d-flex flex-column flex-sm-row gap-2">
-                        <button type="submit" class="btn btn-primary rounded-pill px-4 fw-bold">Salvar cliente</button>
-                        <button type="reset" class="btn btn-outline-primary rounded-pill px-4 fw-bold">Limpar campos</button>
+                        <button type="submit" class="btn btn-primary rounded-pill px-4 fw-bold" data-texto-edicao="Salvar alterações">Salvar cliente</button>
+                        <button type="reset" class="btn btn-outline-primary rounded-pill px-4 fw-bold" data-texto-edicao="Cancelar">Limpar campos</button>
                     </div>
                 </form>
             </section>
@@ -69,9 +69,7 @@
 
                 <form role="search">
                     <div class="d-flex flex-column flex-sm-row gap-2 gap-sm-3 mb-3">
-                        <input class="form-control" type="text" name="busca" id="busca" placeholder="Buscar por nome ou CPF"
-                            aria-label="Buscar por nome ou CPF">
-                        <button class="btn btn-primary rounded-pill px-4 fw-bold">Buscar</button>
+                        <input class="form-control" type="text" name="busca" id="busca" placeholder="Buscar por nome ou CPF" aria-label="Buscar por nome ou CPF">
                     </div>
                 </form>
 
@@ -87,22 +85,7 @@
                                 <th class="text-primary"><span class="visually-hidden">Ações</span></th>
                             </tr>
                         </thead>
-                        <tbody class="table-group-divider" id="table-clientes">
-                            <!-- TODO: O conteúdo abaixo é para testar o CSS. Os dados reais serão preenchidos pela view/controller -->
-                            <tr>
-                                <td><span class="badge rounded-pill text-bg-warning px-3">1</span></td>
-                                <td>Maria Souza</td>
-                                <td>(44) 1 2345-6789</td>
-                                <td>maria@gmail.com</td>
-                                <td>123.456.789-01</td>
-                                <td>
-                                    <div class="d-flex gap-2 justify-content-end">
-                                        <button type="button" class="btn btn-sm btn-outline-primary rounded-pill px-3 fw-semibold">Alterar</button>
-                                        <button type="button" class="btn btn-sm btn-outline-danger rounded-pill px-3 fw-semibold">Remover</button>
-                                    </div>
-                                </td>
-                            </tr>
-                        </tbody>
+                        <tbody class="table-group-divider" id="table-clientes"></tbody>
                     </table>
                 </div>
             </section>
@@ -126,6 +109,8 @@
     <script src="../src/utils/formatadores.js"></script>
     <script src="../src/services/storage.js"></script>
     <script src="../src/views/LayoutView.js"></script>
+    <script src="../src/views/FormularioView.js"></script>
+    <script src="../src/views/ModalView.js"></script>
     <script src="../src/models/Cliente.js"></script>
     <script src="../src/views/ClienteView.js"></script>
     <script src="../src/controllers/ClienteController.js"></script>

@@ -25,10 +25,10 @@
                 <p class="text-body-secondary mb-0">Cadastre novos funcionários e consulte, altere ou remova os que já estão no sistema.</p>
             </header>
 
-            <div class="alert alert-success border-0 border-start border-4 border-success" id="message" role="status" hidden></div>
+            <div class="alert alert-success border-0 border-start border-4 border-success shadow fade position-fixed top-0 end-0 m-3 z-3" id="message" role="status" hidden></div>
 
             <section class="card card-body shadow-sm mb-4">
-                <h2 class="card-title fs-5 fw-bold mb-3">Novo funcionário</h2>
+                <h2 class="card-title fs-5 fw-bold mb-3" data-texto-edicao="Alterar funcionário">Novo funcionário</h2>
 
                 <form id="form-funcionario" class="row g-3">
                     <input type="text" name="id" id="id" hidden>
@@ -61,8 +61,8 @@
                     </div>
 
                     <div class="col-12 d-flex flex-column flex-sm-row gap-2">
-                        <button type="submit" class="btn btn-primary rounded-pill px-4 fw-bold">Salvar funcionário</button>
-                        <button type="reset" class="btn btn-outline-primary rounded-pill px-4 fw-bold">Limpar campos</button>
+                        <button type="submit" class="btn btn-primary rounded-pill px-4 fw-bold" data-texto-edicao="Salvar alterações">Salvar funcionário</button>
+                        <button type="reset" class="btn btn-outline-primary rounded-pill px-4 fw-bold" data-texto-edicao="Cancelar">Limpar campos</button>
                     </div>
                 </form>
             </section>
@@ -72,9 +72,7 @@
 
                 <form role="search">
                     <div class="d-flex flex-column flex-sm-row gap-2 gap-sm-3 mb-3">
-                        <input class="form-control" type="text" name="busca" id="busca" placeholder="Buscar por nome ou matrícula"
-                            aria-label="Buscar por nome ou matrícula">
-                        <button class="btn btn-primary rounded-pill px-4 fw-bold">Buscar</button>
+                        <input class="form-control" type="text" name="busca" id="busca" placeholder="Buscar por nome ou matrícula" aria-label="Buscar por nome ou matrícula">
                     </div>
                 </form>
 
@@ -131,6 +129,8 @@
     <script src="../src/utils/formatadores.js"></script>
     <script src="../src/services/storage.js"></script>
     <script src="../src/views/LayoutView.js"></script>
+    <script src="../src/views/FormularioView.js"></script>
+    <script src="../src/views/ModalView.js"></script>
     <script src="../src/models/Funcionario.js"></script>
     <script src="../src/views/FuncionarioView.js"></script>
     <script src="../src/controllers/FuncionarioController.js"></script>

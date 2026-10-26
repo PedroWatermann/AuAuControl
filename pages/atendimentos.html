@@ -25,10 +25,10 @@
                 <p class="text-body-secondary mb-0">Cadastre novos atendimentos e consulte, altere ou remova os que já estão no sistema.</p>
             </header>
 
-            <div class="alert alert-success border-0 border-start border-4 border-success" id="message" role="status" hidden></div>
+            <div class="alert alert-success border-0 border-start border-4 border-success shadow fade position-fixed top-0 end-0 m-3 z-3" id="message" role="status" hidden></div>
 
             <section class="card card-body shadow-sm mb-4">
-                <h2 class="card-title fs-5 fw-bold mb-3">Novo atendimento</h2>
+                <h2 class="card-title fs-5 fw-bold mb-3" data-texto-edicao="Alterar atendimento">Novo atendimento</h2>
 
                 <form id="form-atendimento" class="row g-3">
                     <input type="text" name="id" id="id" hidden>
@@ -71,8 +71,8 @@
                     </div>
 
                     <div class="col-12 d-flex flex-column flex-sm-row gap-2">
-                        <button type="submit" class="btn btn-primary rounded-pill px-4 fw-bold">Salvar atendimento</button>
-                        <button type="reset" class="btn btn-outline-primary rounded-pill px-4 fw-bold">Limpar campos</button>
+                        <button type="submit" class="btn btn-primary rounded-pill px-4 fw-bold" data-texto-edicao="Salvar alterações">Salvar atendimento</button>
+                        <button type="reset" class="btn btn-outline-primary rounded-pill px-4 fw-bold" data-texto-edicao="Cancelar">Limpar campos</button>
                     </div>
                 </form>
             </section>
@@ -82,9 +82,7 @@
 
                 <form role="search">
                     <div class="d-flex flex-column flex-sm-row gap-2 gap-sm-3 mb-3">
-                        <input class="form-control" type="text" name="busca" id="busca" placeholder="Buscar por código ou cliente"
-                            aria-label="Buscar por código ou cliente">
-                        <button class="btn btn-primary rounded-pill px-4 fw-bold">Buscar</button>
+                        <input class="form-control" type="text" name="busca" id="busca" placeholder="Buscar por código ou cliente" aria-label="Buscar por código ou cliente">
                     </div>
                 </form>
 
@@ -139,6 +137,8 @@
     <script src="../src/utils/formatadores.js"></script>
     <script src="../src/services/storage.js"></script>
     <script src="../src/views/LayoutView.js"></script>
+    <script src="../src/views/FormularioView.js"></script>
+    <script src="../src/views/ModalView.js"></script>
     <script src="../src/models/Cliente.js"></script>
     <script src="../src/models/Animal.js"></script>
     <script src="../src/models/Funcionario.js"></script>

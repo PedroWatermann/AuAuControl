@@ -29,7 +29,7 @@ const RelatorioController = {
             lista = this.prepararAtendimentos(lista);
         }
 
-        RelatorioView.renderizar(tipo, this.ordenar(tipo, lista));
+        RelatorioView.renderizar(tipo, lista);
     },
 
     lerTipoDaUrl() {
@@ -54,20 +54,8 @@ const RelatorioController = {
         } catch { }
     },
 
-    ordenar(tipo, lista) {
-        const copia = [...lista];
-
-        return tipo === 'atendimentos'
-            ? copia.sort((a, b) =>
-                String(b.data ?? '').localeCompare(String(a.data ?? ''))
-            )
-            : copia.sort((a, b) =>
-                String(a.nome ?? '').localeCompare(String(b.nome ?? ''), 'pt-BR', { sensitivity: 'base' })
-            );
-    },
-
     lerLista(chave) {
-        return StorageService.listar(chave);
+        return Armazenamento.ler(chave);
     },
 
     prepararAtendimentos(atendimentos) {
@@ -80,7 +68,9 @@ const RelatorioController = {
             if (typeof valor === 'object') return valor.nome ?? '';
 
             const encontrado = listaReferencia.find(item => String(item.id) === String(valor));
-            return encontrado ? encontrado.nome : '(removido)';
+            return encontrado 
+                ? encontrado.nome 
+                : '(removido)';
         };
 
         return atendimentos.map(at => ({
