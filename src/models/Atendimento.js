@@ -1,4 +1,6 @@
 class Atendimento {
+    static CHAVE = 'atendimentos';
+
     constructor(id, data, cliente, animal, funcionario) {
         this.id = id;
         this.data = data;
@@ -7,36 +9,35 @@ class Atendimento {
         this.funcionario = funcionario;
     }
 
-    get cliente() {
-        return this._cliente;
+    static listar() {
+        return Armazenamento.ler(this.CHAVE);
     }
 
-    set cliente(cliente) {
-        if (!(cliente instanceof Cliente))
-            throw new TypeError("O cliente deve ser uma instância da classe Cliente");
-
-        this._cliente = cliente;
+    static buscar(id) {
+        return this.listar().find(atendimento => String(atendimento.id) === String(id)) || this.listar().find(atendimento => String(atendimento.cliente) === String(id));
     }
 
-    get animal() {
-        return this._animal;
+    static salvar(dados) {
+        const lista = this.listar();
+        const atendimento = new Atendimento(dados.id || this.proximoId(lista), dados.data, dados.cliente, dados.animal, dados.funcionario);
+
+        const indice = lista.findIndex(item => String(item.id) === String(atendimento.id));
+        if (indice === -1) {
+            lista.push(atendimento);
+        } else {
+            lista[indice] = atendimento;
+        }
+
+        Armazenamento.salvar(this.CHAVE, lista);
+        return atendimento;
     }
 
-    set animal(animal) {
-        if (!(animal instanceof Animal))
-            throw new TypeError("O animal deve ser uma instância da classe Animal");
-
-        this._animal = animal;
+    static remover(id) {
+        const lista = this.listar().filter(atendimento => String(atendimento.id) !== String(id));
+        Armazenamento.salvar(this.CHAVE, lista);
     }
 
-    get funcionario() {
-        return this._funcionario;
-    }
-
-    set funcionario(funcionario) {
-        if (!(funcionario instanceof Funcionario))
-            throw new TypeError("O funcionario deve ser uma instância da classe Funcionario");
-
-        this._funcionario = funcionario;
+    static proximoId(lista) {
+        return lista.reduce((maior, atendimento) => Math.max(maior, Number(atendimento.id) || 0), 0) + 1;
     }
 }
