@@ -1,4 +1,6 @@
 :root {
   --azul-escuro: #12285A;
   --amarelo: #F5B800;
+  --sombra: rgba(0, 0, 0, 0.344);
+  --bs-box-shadow-sm: 0 .25rem .6rem rgba(0, 0, 0, 0.150);
 }

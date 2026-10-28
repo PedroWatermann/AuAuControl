@@ -6,6 +6,15 @@
     border-top: 5px solid var(--azul-escuro);
 }
 
+.inicio .card {
+    transition: transform .2s ease, box-shadow .2s ease;
+}
+
+.inicio .card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 18px rgba(from var(--sombra) r g b / 0.25) !important;
+}
+
 /* #endregion */
 
 /* #region Menu Lateral */
