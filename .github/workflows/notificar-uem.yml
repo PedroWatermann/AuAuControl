@@ -2,7 +2,8 @@ name: Notificar UEM
 
 on:
   push:
-    branches: [master]   # confere o nome da branch com `git branch` lá dentro
+    branches: [master]
+  workflow_dispatch:
 
 jobs:
   notify:
@@ -10,7 +11,7 @@ jobs:
     steps:
       - name: Dispara workflow no UEM
         run: |
-          curl -X POST \
+          curl --fail-with-body -sS -X POST \
             -H "Accept: application/vnd.github+json" \
             -H "Authorization: Bearer ${{ secrets.UEM_DISPATCH_PAT }}" \
             https://api.github.com/repos/PedroWatermann/UEM_Eng_Soft/dispatches \
