@@ -38,7 +38,7 @@ const MENU = [
 function criarCabecalho(base) {
     const link = document.createElement('a');
     link.href = base + 'index.html';
-    link.className = 'd-flex align-items-center gap-2 mb-4 text-white text-decoration-none fs-5 fw-bold';
+    link.className = 'd-flex align-items-center gap-2 text-white text-decoration-none fs-5 fw-bold';
 
     const logo = document.createElement('img');
     logo.src = base + 'assets/img/logo-512.png';
@@ -51,6 +51,44 @@ function criarCabecalho(base) {
 
     link.append(logo, nome);
     return link;
+}
+
+function alternarMenu(abrir) {
+    const nav = document.getElementById('menu-principal');
+    const fundo = document.getElementById('menu-fundo');
+    const botao = document.getElementById('botao-menu');
+
+    nav.classList.toggle('aberto', abrir);
+    fundo.classList.toggle('aberto', abrir);
+
+    botao.textContent = abrir ? '✕' : '☰';
+    botao.setAttribute('aria-label', abrir ? 'Fechar menu' : 'Abrir menu');
+    botao.setAttribute('aria-expanded', String(abrir));
+}
+
+function criarBotaoMenu() {
+    const botao = document.createElement('button');
+    botao.id = 'botao-menu';
+    botao.type = 'button';
+    botao.className = 'btn text-white fs-2 lh-1 p-1 border-0 d-md-none';
+    botao.textContent = '☰';
+    botao.setAttribute('aria-label', 'Abrir menu');
+    botao.setAttribute('aria-expanded', 'false');
+    botao.setAttribute('aria-controls', 'menu-principal');
+
+    botao.addEventListener('click', () => {
+        const aberto = document.getElementById('menu-principal').classList.contains('aberto');
+        alternarMenu(!aberto);
+    });
+    return botao;
+};
+
+
+function criarTopo(base) {
+    const topo = document.createElement('div');
+    topo.className = 'd-flex align-items-center justify-content-between mb-md-4';
+    topo.append(criarCabecalho(base), criarBotaoMenu());
+    return topo;
 }
 
 function criarPaginaLink(item, base, atual) {
@@ -106,6 +144,7 @@ function preencherSidebar() {
     const atual = document.body.dataset.page;
 
     const nav = document.createElement('nav');
+    nav.id = 'menu-principal';
     nav.className = 'nav nav-pills flex-column gap-1';
 
     for (const entrada of MENU) {
@@ -116,5 +155,10 @@ function preencherSidebar() {
         );
     }
 
-    sidebar.append(criarCabecalho(base), nav);
+    sidebar.append(criarTopo(base), nav);
+    const fundo = document.createElement('div');
+    fundo.id = 'menu-fundo';
+    fundo.className = 'd-md-none';
+    fundo.addEventListener('click', () => alternarMenu(false));
+    document.body.appendChild(fundo);
 }

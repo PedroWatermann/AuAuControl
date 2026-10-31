@@ -81,3 +81,47 @@ dialog::backdrop {
 }
 
 /* #endregion */
+
+/* #region Menu no celular */
+@media (max-width: 767.98px) {
+    aside {
+        position: sticky;
+        top: 0;
+        z-index: 1045;
+    }
+
+    #menu-principal {
+        position: fixed;
+        top: 80px;
+        left: 0;
+        bottom: 0;
+        width: min(80vw, 18rem);
+        padding: 1rem;
+        overflow-y: auto;
+        background-color: var(--azul-escuro);
+        transform: translateX(-100%);
+        visibility: hidden;
+        transition: transform .25s ease, visibility .25s;
+    }
+
+    #menu-principal.aberto {
+        transform: translateX(0);
+        visibility: visible;
+    }
+
+    #menu-fundo {
+        position: fixed;
+        inset: 0;
+        z-index: 1040;
+        background-color: rgba(from var(--azul-escuro) r g b / 0.5);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity .25s ease;
+    }
+
+    #menu-fundo.aberto {
+        opacity: 1;
+        pointer-events: auto;
+    }
+}
+/* #endregion */
