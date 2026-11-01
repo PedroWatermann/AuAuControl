@@ -14,7 +14,7 @@ class Atendimento {
     }
 
     static buscar(id) {
-        return this.listar().find(atendimento => String(atendimento.id) === String(id)) || this.listar().find(atendimento => String(atendimento.cliente) === String(id));
+        return this.listar().find(atendimento => String(atendimento.id) === String(id));
     }
 
     static salvar(dados) {

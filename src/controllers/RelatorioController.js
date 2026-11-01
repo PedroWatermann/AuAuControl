@@ -1,5 +1,6 @@
 const RelatorioController = {
     iniciar() {
+        RelatorioView.preencherTipos();
         RelatorioView.selecionarTipo(this.lerTipoDaUrl() || this.lerUltimoTipo());
 
         RelatorioView.aoTrocarTipo(() => this.carregar());

@@ -4,9 +4,9 @@ const AtendimentoController = {
         AtendimentoView.aoBuscar(() => this.carregar());
         AtendimentoView.aoAlterar((id, linha) => this.alterar(id, linha));
         AtendimentoView.aoRemover(id => this.remover(id));
-        AtendimentoView.preencherOpcoes('cliente', Cliente.listar(), 'cliente-vazio');
-        AtendimentoView.preencherOpcoes('animal', Animal.listar(), 'animal-vazio');
-        AtendimentoView.preencherOpcoes('funcionario', Funcionario.listar(), 'funcionario-vazio');
+        AtendimentoView.preencherOpcoes('cliente', Cliente.listar());
+        AtendimentoView.preencherOpcoes('animal', Animal.listar());
+        AtendimentoView.preencherOpcoes('funcionario', Funcionario.listar());
 
         this.carregar();
     },
@@ -30,7 +30,13 @@ const AtendimentoController = {
                 animal: animais.get(String(a.animal)) ?? '(removido)',
                 funcionario: funcionarios.get(String(a.funcionario)) ?? '(removido)'
             }))
-            .filter(a => String(a.id).includes(termo) || Utils.normalizarTexto(a.cliente).includes(termo));
+            .filter(a => 
+                String(a.id).includes(termo) 
+                || Utils.normalizarTexto(a.cliente).includes(termo)
+                || Utils.normalizarTexto(a.animal).includes(termo)
+                || Utils.normalizarTexto(a.funcionario).includes(termo)
+                || Utils.formatarDataRelatorio(a.data).includes(termo)
+            );
 
         AtendimentoView.renderizarTabela(lista, termo ? 'Nenhum atendimento encontrado.' : 'Nenhum atendimento cadastrado.');
     },

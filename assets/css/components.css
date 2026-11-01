@@ -7,12 +7,12 @@
 }
 
 .inicio .card {
-    transition: transform .2s ease, box-shadow .2s ease;
+    transition: transform .2s ease, box-shadow .2s ease; /* Adiciona transição às propriedades transform e box-shadow, com duração de 0,2s com animação ease-in e ease-out (ease) */
 }
 
-.inicio .card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 18px rgba(from var(--sombra) r g b / 0.25) !important;
+.inicio .card:hover { /* Quando passar o mouse em cima */
+    transform: translateY(-4px); /* Alterar a prosição do elemento no eixo y em 4px para cima (-4px) */
+    box-shadow: 0 8px 18px rgba(from var(--sombra) r g b / 0.25) !important; /* Aumenta a sombra do card */
 }
 
 /* #endregion */
@@ -32,7 +32,7 @@ summary.dropdown-toggle::after {
     transition: transform 0.2s ease;
 }
 
-details[open]>summary.dropdown-toggle::after {
+details[open]>summary.dropdown-toggle::after { /* Valida se a lista está aberta */
     transform: rotate(180deg);
 }
 
@@ -40,7 +40,7 @@ details[open]>summary.dropdown-toggle::after {
 
 /* #region Modal */
 dialog {
-    width: min(28rem, calc(100% - 2rem));
+    width: min(28rem, calc(100% - 2rem)); 
 }
 
 dialog::backdrop {
@@ -52,8 +52,7 @@ dialog::backdrop {
 /* #region Impressão */
 @media print {
 
-    .table-responsive,
-    .overflow-x-auto {
+    .table-responsive, .overflow-x-auto {
         overflow: visible !important;
     }
 
@@ -72,7 +71,7 @@ dialog::backdrop {
     }
 
     .table tr {
-        break-inside: avoid;
+        break-inside: avoid; /* Não permite quebra do conteúdo da linha entre diferentes páginas */
     }
 
     .badge {

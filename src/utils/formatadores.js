@@ -53,6 +53,6 @@ const Utils = {
     },
 
     normalizarTexto(texto) {
-        return String(texto ?? '').normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().trim();
+        return String(texto ?? '').normalize('NFD').replace(/\p{Diacritic}/gu, '').toLowerCase().trim(); // Remove acentos
     }
 }

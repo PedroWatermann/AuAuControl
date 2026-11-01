@@ -1,5 +1,5 @@
 class Animal {
-    static CHAVE = 'animais';
+    static CHAVE = 'animais'; // Chave utilizada para identificação do objeto no localStorage
 
     constructor(id, nome, peso, altura) {
         this.id = id;
@@ -16,7 +16,7 @@ class Animal {
         return this.listar().find(animal => String(animal.id) === String(id));
     }
 
-    static salvar(dados) {
+    static salvar(dados) { // Serve tanto para novo quanto para edição
         const lista = this.listar();
         const animal = new Animal(dados.id || this.proximoId(lista), dados.nome, dados.peso, dados.altura);
 

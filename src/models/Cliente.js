@@ -44,8 +44,8 @@ class Cliente {
     static cpfEmUso(cpf, idIgnorado) {
         const digitos = String(cpf).replace(/\D/g, '');
         return this.listar().some(cliente =>
-            String(cliente.cpf).replace(/\D/g, '') === digitos && String(cliente.id) !== String(idIgnorado)
-        );
+            String(cliente.cpf).replace(/\D/g, '') === digitos 
+            && String(cliente.id) !== String(idIgnorado));
     }
 
     static contarAtendimentos(id) {

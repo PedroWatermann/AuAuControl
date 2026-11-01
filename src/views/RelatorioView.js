@@ -108,6 +108,17 @@ const RelatorioView = {
         }
     },
 
+    preencherTipos() {
+        const select = document.getElementById('tipo-relatorio');
+
+        const opcoes = Object.entries(this.relatorios).map(([tipo, config]) => {
+            const texto = config.nomePlural.charAt(0).toUpperCase() + config.nomePlural.slice(1);
+            return new Option(texto, tipo);
+        });
+
+        select.replaceChildren(...opcoes);
+    },
+
     obterTipoSelecionado() {
         return document.getElementById('tipo-relatorio').value;
     },

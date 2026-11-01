@@ -50,6 +50,7 @@ const FormularioView = {
         clearTimeout(this.temporizadorMensagem);
 
         mensagem.classList.remove('show');
+        
         this.temporizadorMensagem = setTimeout(() => {
             mensagem.hidden = true;
         }, 150);

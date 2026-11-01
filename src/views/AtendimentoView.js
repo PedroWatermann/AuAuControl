@@ -40,11 +40,10 @@ const AtendimentoView = {
         return document.getElementById('busca').value;
     },
 
-    preencherOpcoes(campo, lista, idAviso) {
+    preencherOpcoes(campo, lista) {
         const select = this.formulario().elements[campo];
         select.length = 1; // mantém só o placeholder
         lista.forEach(item => select.add(new Option(item.nome, item.id)));
-        document.getElementById(idAviso).hidden = lista.length > 0;
     },
 
 
@@ -71,7 +70,7 @@ const AtendimentoView = {
             selo.className = 'badge rounded-pill text-bg-warning px-3';
             selo.textContent = indice + 1;
             tdNumero.appendChild(selo);
-            
+
             const tdData = document.createElement('td');
             tdData.textContent = Utils.formatarDataRelatorio(atendimento.data);
 

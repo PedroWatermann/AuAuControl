@@ -61,17 +61,24 @@ function alternarMenu(abrir) {
     nav.classList.toggle('aberto', abrir);
     fundo.classList.toggle('aberto', abrir);
 
-    botao.textContent = abrir ? '✕' : '☰';
+    botao.replaceChildren(criarIconeMenu(abrir));
     botao.setAttribute('aria-label', abrir ? 'Fechar menu' : 'Abrir menu');
     botao.setAttribute('aria-expanded', String(abrir));
+}
+
+function criarIconeMenu(aberto) {
+    const icone = document.createElement('span');
+    icone.className = aberto ? 'btn-close btn-close-white d-inline-block' : 'navbar-toggler-icon';
+    icone.setAttribute('aria-hidden', 'true');
+    return icone;
 }
 
 function criarBotaoMenu() {
     const botao = document.createElement('button');
     botao.id = 'botao-menu';
     botao.type = 'button';
-    botao.className = 'btn text-white fs-2 lh-1 p-1 border-0 d-md-none';
-    botao.textContent = '☰';
+    botao.className = 'btn navbar-dark lh-1 p-1 border-0 d-md-none';
+    botao.appendChild(criarIconeMenu(false));
     botao.setAttribute('aria-label', 'Abrir menu');
     botao.setAttribute('aria-expanded', 'false');
     botao.setAttribute('aria-controls', 'menu-principal');
@@ -82,7 +89,6 @@ function criarBotaoMenu() {
     });
     return botao;
 };
-
 
 function criarTopo(base) {
     const topo = document.createElement('div');
