@@ -56,7 +56,9 @@ const ClienteController = {
             erros.push({ campo: 'nome', mensagem: 'Informe o nome do cliente.' });
         }
 
-        if (Validacoes.preenchido(dados.telefone) && !Validacoes.telefone(dados.telefone)) {
+        if (!Validacoes.preenchido(dados.telefone)) {
+            erros.push({ campo: 'telefone', mensagem: 'Informe o telefone do cliente.' });
+        } else if (!Validacoes.telefone(dados.telefone)) {
             erros.push({ campo: 'telefone', mensagem: 'Telefone incompleto: informe o DDD e o número.' });
         }
 
@@ -89,8 +91,8 @@ const ClienteController = {
 
         const atendimentos = Cliente.contarAtendimentos(id);
         if (atendimentos > 0) {
-            const texto = atendimentos === 1 
-                ? '1 atendimento' 
+            const texto = atendimentos === 1
+                ? '1 atendimento'
                 : `${atendimentos} atendimentos`;
             ClienteView.mostrarMensagem(`${cliente.nome} tem ${texto} e não pode ser removido.`, 'danger');
             return;
