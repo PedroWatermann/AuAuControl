@@ -28,7 +28,7 @@
             <section class="card card-body shadow-sm mb-4">
                 <h2 class="card-title fs-5 fw-bold mb-3" data-texto-edicao="Alterar funcionário">Novo funcionário</h2>
 
-                <form id="form-funcionario" class="row g-3">
+                <form id="form-funcionario" class="row g-3" novalidate>
                     <input type="text" name="id" id="id" hidden>
 
                     <p class="col-12 small text-body-secondary mb-0">Campos com <span class="text-danger">*</span> são obrigatórios.</p>
@@ -55,7 +55,7 @@
 
                     <div class="col-md-4">
                         <label class="form-label fw-semibold" for="cargaHoraria">Carga horária semanal (horas) <span class="text-danger" aria-hidden="true">*</span></label>
-                        <input class="form-control" type="number" id="cargaHoraria" name="cargaHoraria" placeholder="40" min="1" max="168" step="1" required>
+                        <input class="form-control" type="number" id="cargaHoraria" name="cargaHoraria" placeholder="40" min="1" step="1" required>
                     </div>
 
                     <div class="col-12 d-flex flex-column flex-sm-row gap-2">

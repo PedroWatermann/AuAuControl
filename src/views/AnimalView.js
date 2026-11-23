@@ -170,5 +170,9 @@ const AnimalView = {
                 callback(botao.dataset.id, botao.closest('tr'));
             }
         });
+    },
+
+    travarBotaoSalvar(travar) {
+        this.formulario().querySelector('[type="submit"]').disabled = travar;
     }
 };

@@ -1,45 +1,75 @@
 const AnimalController = {
+    animais: [],
+
     iniciar() {
         AnimalView.aoSalvar(dados => this.salvar(dados));
-        AnimalView.aoBuscar(() => this.carregar());
+        AnimalView.aoBuscar(() => this.filtrar());
         AnimalView.aoAlterar((id, linha) => this.alterar(id, linha));
         AnimalView.aoRemover(id => this.remover(id));
 
         this.carregar();
     },
 
-    carregar() {
+    async carregar() {
+        try {
+            this.animais = await Animal.listar();
+        } catch (erro) {
+            this.animais = [];
+            AnimalView.mostrarMensagem(erro.message, 'danger');
+        }
+        this.filtrar();
+    },
+
+    filtrar() {
         const termo = Utils.normalizarTexto(AnimalView.obterBusca());
 
-        const lista = Animal.listar().filter(animal => Utils.normalizarTexto(animal.nome).includes(termo));
+        const lista = this.animais.filter(animal =>
+            Utils.normalizarTexto(animal.nome).includes(termo)
+        );
 
         AnimalView.renderizarTabela(lista, termo ? 'Nenhum animal encontrado.' : 'Nenhum animal cadastrado.');
     },
 
-    salvar(dados) {
+    async salvar(dados) {
         AnimalView.limparCamposInvalidos();
 
         const erros = this.validar(dados);
         if (erros.length > 0) {
-            AnimalView.marcarCamposInvalidos(erros.map(erro => erro.campo));
-            AnimalView.mostrarMensagem(
-                erros.length === 1 ? erros[0].mensagem : 'Corrija os campos destacados.',
-                'danger'
-            );
+            this.mostrarErros(erros);
             return;
         }
 
         const alterando = dados.id !== '';
-        const animal = Animal.salvar({
-            id: Number(dados.id) || null,
-            nome: dados.nome.trim(),
-            peso: Number(dados.peso),
-            altura: Number(dados.altura)
-        });
+        AnimalView.travarBotaoSalvar(true);
 
-        AnimalView.limparFormulario();
-        AnimalView.mostrarMensagem(`${alterando ? 'Animal alterado' : 'Animal salvo'}: ${animal.nome}`);
-        this.carregar();
+        try {
+            const animal = await Animal.salvar({
+                id: Number(dados.id) || null,
+                nome: dados.nome.trim(),
+                peso: Number(dados.peso),
+                altura: Number(dados.altura)
+            });
+
+            AnimalView.limparFormulario();
+            AnimalView.mostrarMensagem(`${alterando ? 'Animal alterado' : 'Animal salvo'}: ${animal.nome}`);
+            await this.carregar();
+        } catch (erro) {
+            if (erro.erros?.length > 0) {
+                this.mostrarErros(erro.erros);
+            } else {
+                AnimalView.mostrarMensagem(erro.message, 'danger');
+            }
+        } finally {
+            AnimalView.travarBotaoSalvar(false);
+        }
+    },
+
+    mostrarErros(erros) {
+        AnimalView.marcarCamposInvalidos(erros.map(erro => erro.campo));
+        AnimalView.mostrarMensagem(
+            erros.length === 1 ? erros[0].mensagem : 'Corrija os campos destacados.',
+            'danger'
+        );
     },
 
     validar(dados) {
@@ -64,8 +94,12 @@ const AnimalController = {
         return erros;
     },
 
+    encontrar(id) {
+        return this.animais.find(animal => String(animal.id) === String(id));
+    },
+
     alterar(id, linha) {
-        const animal = Animal.buscar(id);
+        const animal = this.encontrar(id);
         if (!animal) return;
 
         AnimalView.esconderMensagem();
@@ -73,28 +107,24 @@ const AnimalController = {
     },
 
     async remover(id) {
-        const animal = Animal.buscar(id);
+        const animal = this.encontrar(id);
         if (!animal) return;
-
-        const atendimentos = Animal.contarAtendimentos(id);
-        if (atendimentos > 0) {
-            const texto = atendimentos === 1 
-                ? '1 atendimento' 
-                : `${atendimentos} atendimentos`;
-            AnimalView.mostrarMensagem(`${animal.nome} tem ${texto} e não pode ser removido.`, 'danger');
-            return;
-        }
 
         if (!(await AnimalView.confirmarRemocao(animal.nome))) return;
 
-        Animal.remover(id);
+        try {
+            await Animal.remover(id);
+        } catch (erro) {
+            AnimalView.mostrarMensagem(erro.message, 'danger');
+            return;
+        }
 
         if (AnimalView.obterIdEmEdicao() === String(id)) {
             AnimalView.limparFormulario();
         }
 
         AnimalView.mostrarMensagem(`Animal removido: ${animal.nome}`);
-        this.carregar();
+        await this.carregar();
     }
 };
 

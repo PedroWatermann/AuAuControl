@@ -1,71 +1,116 @@
 const AtendimentoController = {
-    iniciar() {
+    atendimentos: [],
+    clientes: [],
+    animais: [],
+    funcionarios: [],
+
+    async iniciar() {
         AtendimentoView.aoSalvar(dados => this.salvar(dados));
-        AtendimentoView.aoBuscar(() => this.carregar());
+        AtendimentoView.aoBuscar(() => this.filtrar());
         AtendimentoView.aoAlterar((id, linha) => this.alterar(id, linha));
         AtendimentoView.aoRemover(id => this.remover(id));
-        AtendimentoView.preencherOpcoes('cliente', Cliente.listar());
-        AtendimentoView.preencherOpcoes('animal', Animal.listar());
-        AtendimentoView.preencherOpcoes('funcionario', Funcionario.listar());
 
+        await this.carregarOpcoes();
         this.carregar();
     },
 
-    mapaNomes(lista) {
-        return new Map(lista.map(item => [String(item.id), item.nome]));
+    async carregarOpcoes() {
+        try {
+            const [clientes, animais, funcionarios] = await Promise.all([
+                Cliente.listar(),
+                Animal.listar(),
+                Funcionario.listar()
+            ]);
+            this.clientes = clientes;
+            this.animais = animais;
+            this.funcionarios = funcionarios;
+        } catch (erro) {
+            AtendimentoView.mostrarMensagem(erro.message, 'danger');
+        }
+
+        AtendimentoView.preencherOpcoes('cliente', this.clientes);
+        AtendimentoView.preencherOpcoes('animal', this.animais);
+        AtendimentoView.preencherOpcoes('funcionario', this.funcionarios);
     },
 
-    carregar() {
+    nome(lista, id) {
+        const item = lista.find(item => String(item.id) === String(id));
+        return item ? item.nome : '(removido)';
+    },
+
+    async carregar() {
+        try {
+            this.atendimentos = await Atendimento.listar();
+        } catch (erro) {
+            this.atendimentos = [];
+            AtendimentoView.mostrarMensagem(erro.message, 'danger');
+        }
+        this.filtrar();
+    },
+
+    filtrar() {
         const termo = Utils.normalizarTexto(AtendimentoView.obterBusca());
 
-        const clientes = this.mapaNomes(Cliente.listar());
-        const animais = this.mapaNomes(Animal.listar());
-        const funcionarios = this.mapaNomes(Funcionario.listar());
-
-        const lista = Atendimento.listar()
-            .map(a => ({
-                id: a.id,
-                data: a.data,
-                cliente: clientes.get(String(a.cliente)) ?? '(removido)',
-                animal: animais.get(String(a.animal)) ?? '(removido)',
-                funcionario: funcionarios.get(String(a.funcionario)) ?? '(removido)'
+        const lista = this.atendimentos
+            .map(atendimento => ({
+                id: atendimento.id,
+                data: atendimento.data,
+                cliente: this.nome(this.clientes, atendimento.cliente),
+                animal: this.nome(this.animais, atendimento.animal),
+                funcionario: this.nome(this.funcionarios, atendimento.funcionario)
             }))
-            .filter(a => 
-                String(a.id).includes(termo) 
-                || Utils.normalizarTexto(a.cliente).includes(termo)
-                || Utils.normalizarTexto(a.animal).includes(termo)
-                || Utils.normalizarTexto(a.funcionario).includes(termo)
-                || Utils.formatarDataRelatorio(a.data).includes(termo)
+            .filter(atendimento =>
+                String(atendimento.id).includes(termo) ||
+                Utils.normalizarTexto(atendimento.cliente).includes(termo) ||
+                Utils.normalizarTexto(atendimento.animal).includes(termo) ||
+                Utils.normalizarTexto(atendimento.funcionario).includes(termo) ||
+                Utils.formatarDataRelatorio(atendimento.data).includes(termo)
             );
 
         AtendimentoView.renderizarTabela(lista, termo ? 'Nenhum atendimento encontrado.' : 'Nenhum atendimento cadastrado.');
     },
 
-    salvar(dados) {
+    async salvar(dados) {
         AtendimentoView.limparCamposInvalidos();
 
         const erros = this.validar(dados);
         if (erros.length > 0) {
-            AtendimentoView.marcarCamposInvalidos(erros.map(erro => erro.campo));
-            AtendimentoView.mostrarMensagem(
-                erros.length === 1 ? erros[0].mensagem : 'Corrija os campos destacados.',
-                'danger'
-            );
+            this.mostrarErros(erros);
             return;
         }
 
         const alterando = dados.id !== '';
-        const atendimento = Atendimento.salvar({
-            id: Number(dados.id) || null,
-            data: dados.data.trim(),
-            cliente: dados.cliente.trim(),
-            animal: dados.animal.trim(),
-            funcionario: dados.funcionario.trim(),
-        });
+        AtendimentoView.travarBotaoSalvar(true);
 
-        AtendimentoView.limparFormulario();
-        AtendimentoView.mostrarMensagem(`${alterando ? 'Atendimento alterado' : 'Atendimento salvo'}: ${atendimento.data}`);
-        this.carregar();
+        try {
+            const atendimento = await Atendimento.salvar({
+                id: Number(dados.id) || null,
+                data: dados.data,
+                cliente: Number(dados.cliente),
+                animal: Number(dados.animal),
+                funcionario: Number(dados.funcionario)
+            });
+
+            AtendimentoView.limparFormulario();
+            AtendimentoView.mostrarMensagem(`${alterando ? 'Atendimento alterado' : 'Atendimento salvo'}: ${Utils.formatarDataRelatorio(atendimento.data)}`);
+            await this.carregar();
+        } catch (erro) {
+            if (erro.erros?.length > 0) {
+                this.mostrarErros(erro.erros);
+            } else {
+                AtendimentoView.mostrarMensagem(erro.message, 'danger');
+            }
+        } finally {
+            AtendimentoView.travarBotaoSalvar(false);
+        }
+    },
+
+    mostrarErros(erros) {
+        AtendimentoView.marcarCamposInvalidos(erros.map(erro => erro.campo));
+        AtendimentoView.mostrarMensagem(
+            erros.length === 1 ? erros[0].mensagem : 'Corrija os campos destacados.',
+            'danger'
+        );
     },
 
     validar(dados) {
@@ -77,27 +122,24 @@ const AtendimentoController = {
         
         if (!Validacoes.preenchido(dados.cliente)) {
             erros.push({ campo: 'cliente', mensagem: 'Informe o cliente atendido.' });
-        } else if (!Cliente.buscar(dados.cliente)) {
-            erros.push({ campo: 'cliente', mensagem: 'Cliente não encontrado.' });
         }
 
         if (!Validacoes.preenchido(dados.animal)) {
             erros.push({ campo: 'animal', mensagem: 'Informe o animal atendido.' });
-        } else if (!Animal.buscar(dados.animal)) {
-            erros.push({ campo: 'animal', mensagem: 'Animal não encontrado.' });
         }
-
         if (!Validacoes.preenchido(dados.funcionario)) {
             erros.push({ campo: 'funcionario', mensagem: 'Informe o funcionário que realizou o atendimento.' });
-        } else if (!Funcionario.buscar(dados.funcionario)) {
-            erros.push({ campo: 'funcionario', mensagem: 'Funcionário não encontrado.' });
         }
 
         return erros;
     },
 
+    encontrar(id) {
+        return this.atendimentos.find(atendimento => String(atendimento.id) === String(id));
+    },
+
     alterar(id, linha) {
-        const atendimento = Atendimento.buscar(id);
+        const atendimento = this.encontrar(id);
         if (!atendimento) return;
 
         AtendimentoView.esconderMensagem();
@@ -105,19 +147,24 @@ const AtendimentoController = {
     },
 
     async remover(id) {
-        const atendimento = Atendimento.buscar(id);
+        const atendimento = this.encontrar(id);
         if (!atendimento) return;
 
         if (!(await AtendimentoView.confirmarRemocao(atendimento.id))) return;
 
-        Atendimento.remover(id);
+        try {
+            await Atendimento.remover(id);
+        } catch (erro) {
+            AtendimentoView.mostrarMensagem(erro.message, 'danger');
+            return;
+        }
 
         if (AtendimentoView.obterIdEmEdicao() === String(id)) {
             AtendimentoView.limparFormulario();
         }
 
-        AtendimentoView.mostrarMensagem(`Atendimento removido: ${atendimento.data}`);
-        this.carregar();
+        AtendimentoView.mostrarMensagem(`Atendimento removido: ${Utils.formatarDataRelatorio(atendimento.data)}`);
+        await this.carregar();
     }
 };
 
