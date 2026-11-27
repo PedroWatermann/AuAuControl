@@ -4,29 +4,29 @@ const RelatorioView = {
             nomePlural: 'clientes',
             mensagemVazio: 'Nenhum cliente cadastrado.',
             colunas: [
-                { 
-                    titulo: 'Nome', 
-                    valor: item => item.nome 
+                {
+                    titulo: 'Nome',
+                    valor: item => item.nome
                 },
-                { 
-                    titulo: 'Telefone', 
-                    valor: item => item.telefone, 
-                    classe: 'text-nowrap' 
+                {
+                    titulo: 'Telefone',
+                    valor: item => item.telefone,
+                    classe: 'text-nowrap'
                 },
-                { 
-                    titulo: 'E-mail', 
-                    valor: item => item.email, 
-                    classe: 'text-break' 
+                {
+                    titulo: 'E-mail',
+                    valor: item => item.email,
+                    classe: 'text-break'
                 },
-                { 
-                    titulo: 'RG', 
-                    valor: item => item.rg, 
-                    classe: 'text-nowrap' 
+                {
+                    titulo: 'RG',
+                    valor: item => item.rg,
+                    classe: 'text-nowrap'
                 },
-                { 
-                    titulo: 'CPF', 
-                    valor: item => item.cpf, 
-                    classe: 'text-nowrap' 
+                {
+                    titulo: 'CPF',
+                    valor: item => item.cpf,
+                    classe: 'text-nowrap'
                 }
             ]
         },
@@ -34,27 +34,27 @@ const RelatorioView = {
             nomePlural: 'funcionários',
             mensagemVazio: 'Nenhum funcionário cadastrado.',
             colunas: [
-                { 
-                    titulo: 'Nome', 
-                    valor: item => item.nome 
+                {
+                    titulo: 'Nome',
+                    valor: item => item.nome
                 },
-                { 
-                    titulo: 'Matrícula', 
-                    valor: item => item.numeroMatricula, 
-                    classe: 'text-nowrap' 
+                {
+                    titulo: 'Matrícula',
+                    valor: item => item.numeroMatricula,
+                    classe: 'text-nowrap'
                 },
-                { 
-                    titulo: 'Qualificação', 
-                    valor: item => item.qualificacao 
+                {
+                    titulo: 'Qualificação',
+                    valor: item => item.qualificacao
                 },
-                { 
-                    titulo: 'Função', 
-                    valor: item => item.descricaoFuncao 
+                {
+                    titulo: 'Função',
+                    valor: item => item.descricaoFuncao
                 },
-                { 
-                    titulo: 'Carga horária', 
-                    valor: item => item.cargaHorariaSemanal ? item.cargaHorariaSemanal + ' h/semana' : '', 
-                    classe: 'text-nowrap' 
+                {
+                    titulo: 'Carga horária',
+                    valor: item => item.cargaHorariaSemanal ? item.cargaHorariaSemanal + ' h/semana' : '',
+                    classe: 'text-nowrap'
                 }
             ]
         },
@@ -62,19 +62,19 @@ const RelatorioView = {
             nomePlural: 'animais',
             mensagemVazio: 'Nenhum animal cadastrado.',
             colunas: [
-                { 
-                    titulo: 'Nome', 
-                    valor: item => item.nome 
+                {
+                    titulo: 'Nome',
+                    valor: item => item.nome
                 },
-                { 
-                    titulo: 'Peso', 
-                    valor: item => item.peso ? Utils.formatarNumero(item.peso) + ' kg' : '', 
-                    classe: 'text-nowrap' 
+                {
+                    titulo: 'Peso',
+                    valor: item => item.peso ? Utils.formatarNumero(item.peso) + ' kg' : '',
+                    classe: 'text-nowrap'
                 },
-                { 
-                    titulo: 'Altura', 
-                    valor: item => item.altura ? Utils.formatarNumero(item.altura) + ' cm' : '', 
-                    classe: 'text-nowrap' 
+                {
+                    titulo: 'Altura',
+                    valor: item => item.altura ? Utils.formatarNumero(item.altura) + ' cm' : '',
+                    classe: 'text-nowrap'
                 }
             ]
         },
@@ -82,27 +82,27 @@ const RelatorioView = {
             nomePlural: 'atendimentos',
             mensagemVazio: 'Nenhum atendimento registrado.',
             colunas: [
-                { 
-                    titulo: 'Código', 
-                    valor: item => item.id, 
-                    classe: 'text-nowrap' 
+                {
+                    titulo: 'Código',
+                    valor: item => item.id,
+                    classe: 'text-nowrap'
                 },
-                { 
-                    titulo: 'Data', 
-                    valor: item => Utils.formatarDataRelatorio(item.data), 
-                    classe: 'text-nowrap' 
+                {
+                    titulo: 'Data',
+                    valor: item => Utils.formatarDataRelatorio(item.data),
+                    classe: 'text-nowrap'
                 },
-                { 
-                    titulo: 'Cliente', 
-                    valor: item => item.cliente 
+                {
+                    titulo: 'Cliente',
+                    valor: item => item.cliente
                 },
-                { 
-                    titulo: 'Animal', 
-                    valor: item => item.animal 
+                {
+                    titulo: 'Animal',
+                    valor: item => item.animal
                 },
-                { 
-                    titulo: 'Funcionário', 
-                    valor: item => item.funcionario 
+                {
+                    titulo: 'Funcionário',
+                    valor: item => item.funcionario
                 }
             ]
         }
@@ -189,13 +189,7 @@ const RelatorioView = {
         tbody.innerHTML = '';
 
         if (lista.length === 0) {
-            const tr = document.createElement('tr');
-            const td = document.createElement('td');
-            td.colSpan = config.colunas.length + 1;
-            td.className = 'text-center text-body-secondary py-4';
-            td.textContent = config.mensagemVazio;
-            tr.appendChild(td);
-            tbody.appendChild(tr);
+            this.renderizarLinhaUnica(config.colunas.length, config.mensagemVazio, 'text-body-secondary');
             return;
         }
 
@@ -218,6 +212,28 @@ const RelatorioView = {
 
             tbody.appendChild(tr);
         });
+    },
+
+    mostrarErro(tipo, mensagem) {
+        const config = this.relatorios[tipo];
+        if (!config) return;
+
+        document.getElementById('relatorio-resumo').textContent = 'Não foi possível carregar o relatório.';
+        document.getElementById('btn-imprimir').disabled = true;
+
+        this.renderizarCabecalho(config.colunas);
+        this.renderizarLinhaUnica(config.colunas.length, mensagem, 'text-danger');
+    },
+
+    renderizarLinhaUnica(totalColunas, texto, classe) {
+        const tbody = document.getElementById('relatorio-corpo');
+        const tr = document.createElement('tr');
+        const td = document.createElement('td');
+        td.colSpan = totalColunas + 1;
+        td.className = `text-center py-4 ${classe}`;
+        td.textContent = texto;
+        tr.appendChild(td);
+        tbody.replaceChildren(tr);
     },
 
     imprimir() {

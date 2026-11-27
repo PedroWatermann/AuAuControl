@@ -19,18 +19,18 @@ const RelatorioController = {
         this.carregar();
     },
 
-    carregar() {
+    async carregar() {
         const tipo = RelatorioView.obterTipoSelecionado();
         this.alterarTipoNaUrl(tipo);
         this.gravarUltimoTipo(tipo);
 
-        let lista = this.lerLista(tipo);
-
-        if (tipo === 'atendimentos') {
-            lista = this.prepararAtendimentos(lista);
+        try {
+            let lista = await this.lerLista(tipo);
+            if (tipo === 'atendimentos') lista = this.prepararAtendimentos(lista);
+            RelatorioView.renderizar(tipo, lista);
+        } catch (erro) {
+            RelatorioView.mostrarErro(tipo, erro.message);
         }
-
-        RelatorioView.renderizar(tipo, lista);
     },
 
     lerTipoDaUrl() {
@@ -56,32 +56,24 @@ const RelatorioController = {
     },
 
     lerLista(chave) {
-        return Armazenamento.ler(chave);
+        const models = {
+            clientes: Cliente,
+            animais: Animal,
+            funcionarios: Funcionario,
+            atendimentos: Atendimento
+        };
+        return models[chave].listar();
     },
 
     prepararAtendimentos(atendimentos) {
-        const clientes = this.lerLista('clientes');
-        const animais = this.lerLista('animais');
-        const funcionarios = this.lerLista('funcionarios');
-
-        const nomeDe = (valor, listaReferencia) => {
-            if (!valor) return '';
-            if (typeof valor === 'object') return valor.nome ?? '';
-
-            const encontrado = listaReferencia.find(item => String(item.id) === String(valor));
-            return encontrado 
-                ? encontrado.nome 
-                : '(removido)';
-        };
-
         return atendimentos.map(at => ({
             id: at.id,
             data: at.data,
-            cliente: nomeDe(at._cliente ?? at.cliente, clientes),
-            animal: nomeDe(at._animal ?? at.animal, animais),
-            funcionario: nomeDe(at._funcionario ?? at.funcionario, funcionarios)
+            cliente: at.clienteNome,
+            animal: at.animalNome,
+            funcionario: at.funcionarioNome
         }));
-    }
+    },
 };
 
 document.addEventListener('DOMContentLoaded', () => RelatorioController.iniciar());

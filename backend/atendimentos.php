@@ -46,8 +46,11 @@ function listarAtendimentos(mysqli $con): array
 {
     $resultado = mysqli_execute_query(
         $con,
-        'SELECT id, data, id_cliente AS cliente, id_animal AS animal, id_funcionario AS funcionario
-        FROM atendimentos
+        'SELECT a.id, a.data, c.id AS cliente, c.nome AS clienteNome, n.id AS animal, n.nome AS animalNome, f.id AS funcionario, f.nome AS funcionarioNome
+        FROM atendimentos a
+        JOIN clientes c ON a.id_cliente = c.id
+        JOIN animais n ON a.id_animal = n.id
+        JOIN funcionarios f ON a.id_funcionario = f.id
         ORDER BY data DESC, id DESC'
     );
     return mysqli_fetch_all($resultado, MYSQLI_ASSOC);
