@@ -51,6 +51,18 @@ function lerTexto(array $dados, string $campo): string
     return is_scalar($valor) ? trim((string) $valor) : '';
 }
 
+function lerInteiro(array $dados, string $campo): ?int
+{
+    $valor = filter_var($dados[$campo] ?? null, FILTER_VALIDATE_INT);
+    return $valor === false ? null : $valor;
+}
+
+function lerNumero(array $dados, string $campo): ?float
+{
+    $valor = $dados[$campo] ?? null;
+    return is_numeric($valor) ? (float) $valor : null;
+}
+
 set_exception_handler(
     function (Throwable $erro) {
         error_log($erro);

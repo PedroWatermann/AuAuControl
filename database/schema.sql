@@ -6,7 +6,7 @@ DROP TABLE IF EXISTS funcionarios;
 CREATE TABLE animais (
     id INT PRIMARY KEY AUTO_INCREMENT,
     nome VARCHAR(75) NOT NULL,
-    peso DECIMAL(10, 2) NOT NULL,
+    peso DECIMAL(6, 2) NOT NULL,  
     altura DECIMAL(5, 2) NOT NULL
 );
 
@@ -22,7 +22,7 @@ CREATE TABLE clientes (
 CREATE TABLE funcionarios (
     id INT PRIMARY KEY AUTO_INCREMENT,
     nome VARCHAR(75) NOT NULL,
-    numero_matricula VARCHAR(10) NOT NULL,
+    numero_matricula VARCHAR(10) NOT NULL UNIQUE,
     qualificacao VARCHAR(150),
     descricao_funcao VARCHAR(255),
     carga_horaria_semanal INT NOT NULL

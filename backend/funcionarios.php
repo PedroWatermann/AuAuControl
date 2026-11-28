@@ -99,16 +99,18 @@ function salvarFuncionario(mysqli $con, array $corpo): never
         $erros[] = ['campo' => 'funcao', 'mensagem' => 'Descrição muito longa (máximo de 255 caracteres).'];
     }
 
-    if ($cargaHoraria === null || $cargaHoraria <= 0) {
-        $erros[] = ['campo' => 'cargaHoraria', 'mensagem' => 'A carga horária deve ser maior que zero.'];
+    if ($cargaHoraria === null) {
+        $erros[] = ['campo' => 'cargaHoraria', 'mensagem' => 'Insira um número inteiro.'];
+    } elseif ($cargaHoraria <= 0 || $cargaHoraria > 100){
+        $erros[] = ['campo' => 'cargaHoraria', 'mensagem' => 'A carga horária deve estar entre 1 a 100 horas semanais.'];
     }
 
     if ($matricula === ''){
         $erros[] = ['campo' => 'matricula', 'mensagem' => 'Informe o número de matrícula.'];
-    } elseif (mb_strlen($matricula) > 10) {
-        $erros[] = ['campo' => 'matricula', 'mensagem' => 'Matrícula muito longa (máximo de 10 caracteres).'];
     } elseif (!ctype_digit($matricula)) {
         $erros[] = ['campo' => 'matricula', 'mensagem' => 'A matrícula deve ter apenas números.'];
+    } elseif (mb_strlen($matricula) > 10) {
+        $erros[] = ['campo' => 'matricula', 'mensagem' => 'Matrícula muito longa (máximo de 10 caracteres).'];
     } elseif (matriculaEmUso($con, $matricula, $id)) {
         $erros[] = ['campo' => 'matricula', 'mensagem' => 'Já existe um funcionário com esta matrícula.'];
     }
@@ -164,12 +166,6 @@ function removerFuncionario(mysqli $con, array $corpo): never
 
     mysqli_execute_query($con, 'DELETE FROM funcionarios WHERE id = ?', [$id]);
     responderJson(['mensagem' => "Funcionário removido."]);
-}
-
-function lerInteiro(array $dados, string $campo): ?int
-{
-    $valor = filter_var($dados[$campo] ?? null, FILTER_VALIDATE_INT);
-    return $valor === false ? null : $valor;
 }
 
 function matriculaEmUso(mysqli $con, string $matricula, ?int $idIgnorado): bool

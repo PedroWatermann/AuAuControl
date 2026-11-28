@@ -101,7 +101,7 @@ function salvarAtendimento(mysqli $con, array $corpo): never
     }
 
     if ($funcionario === null){
-        $erros[] = ['campo' => 'funcionario', 'mensagem' => 'Selecione o funcionario.'];    
+        $erros[] = ['campo' => 'funcionario', 'mensagem' => 'Selecione o funcionário.'];    
     } elseif (!existeRegistro($con, 'funcionarios', $funcionario)){
         $erros[] = ['campo' => 'funcionario', 'mensagem' => 'Funcionário não encontrado.'];
     }
@@ -143,14 +143,11 @@ function removerAtendimento(mysqli $con, array $corpo): never
     responderJson(['mensagem' => 'Atendimento removido.']);
 }
 
-function lerInteiro(array $dados, string $campo): ?int
-{
-    $valor = filter_var($dados[$campo] ?? null, FILTER_VALIDATE_INT);
-    return $valor === false ? null : $valor;
-}
-
 function existeRegistro(mysqli $con, string $tabela, int $id): bool
 {
+    if (!in_array($tabela, ['clientes', 'animais', 'funcionarios'], true)) {
+        throw new InvalidArgumentException("Tabela inválida: {$tabela}");
+    }
     $resultado = mysqli_execute_query($con, "SELECT id FROM {$tabela} WHERE id = ?", [$id]);
     return mysqli_fetch_assoc($resultado) !== null;
 }

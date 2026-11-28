@@ -81,8 +81,8 @@ function salvarAnimal(mysqli $con, array $corpo): never
         $erros[] = ['campo' => 'nome', 'mensagem' => 'Nome muito longo (máximo 75 caracteres).'];
     }
 
-    if ($peso === null || $peso <= 0) {
-        $erros[] = ['campo' => 'peso', 'mensagem' => 'O peso deve ser maior que zero.'];
+    if ($peso === null || $peso <= 0 || $peso > 9999.99) {
+        $erros[] = ['campo' => 'peso', 'mensagem' => 'O peso deve estar entre 0,01 a 9.999,99kg'];
     }
 
     if ($altura === null || $altura <= 0) {
@@ -143,9 +143,4 @@ function removerAnimal(mysqli $con, array $corpo): never
     responderJson(['mensagem' => "Animal removido."]);
 }
 
-function lerNumero(array $dados, string $campo): ?float
-{
-    $valor = $dados[$campo] ?? null;
-    return is_numeric($valor) ? (float) $valor : null;
-}
 #endregion
